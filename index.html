@@ -1146,20 +1146,39 @@ const PLANS = {
 const PATH_ORDER = ['etat','prive','entre','indep'];
 const STORAGE_KEY = 'massar-results-v1';
 
-// ---- Storage helpers ----
+// ---- Storage helpers (window.storage in Claude.ai, localStorage elsewhere) ----
 async function saveResults(){
-  const payload = JSON.stringify({ answers: state.answers, lang: state.lang, dossierNumber: state.dossierNumber, savedAt: new Date().toISOString() });
-  try { await window.storage.set(STORAGE_KEY, payload); return true; } catch(e){ return false; }
+  var payload = JSON.stringify({ answers: state.answers, lang: state.lang, dossierNumber: state.dossierNumber, savedAt: new Date().toISOString() });
+  try {
+    if(window.storage && typeof window.storage.set === 'function'){
+      await window.storage.set(STORAGE_KEY, payload);
+    } else {
+      localStorage.setItem(STORAGE_KEY, payload);
+    }
+    return true;
+  } catch(e){ return false; }
 }
 async function loadSavedResults(){
   try {
-    const result = await window.storage.get(STORAGE_KEY);
-    if(!result) return null;
-    return JSON.parse(result.value);
+    if(window.storage && typeof window.storage.get === 'function'){
+      var result = await window.storage.get(STORAGE_KEY);
+      if(!result) return null;
+      return JSON.parse(result.value);
+    } else {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return null;
+      return JSON.parse(raw);
+    }
   } catch(e){ return null; }
 }
 async function clearSavedResults(){
-  try { await window.storage.delete(STORAGE_KEY); } catch(e){}
+  try {
+    if(window.storage && typeof window.storage.delete === 'function'){
+      await window.storage.delete(STORAGE_KEY);
+    } else {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  } catch(e){}
 }
 
 const state = {
