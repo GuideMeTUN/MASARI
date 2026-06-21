@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Dossier de Carrière</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ECE6D3;
+    --paper-alt:#E0D9C2;
+    --paper-deep:#D9D1B6;
+    --ink:#202F49;
+    --ink-soft:#5A5848;
+    --seal:#8A3324;
+    --seal-tint:#E7D2C7;
+    --gold:#967A3F;
+    --line:rgba(32,47,73,0.20);
+    --shadow:rgba(32,47,73,0.16);
+    --radius:10px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    background:
+      radial-gradient(ellipse at top left, rgba(150,122,63,0.07), transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    min-height:100vh;
+  }
+  body.lang-ar{ font-family:'IBM Plex Sans Arabic','IBM Plex Sans', sans-serif; }
+
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  a{ color:var(--seal); }
+
+  button{ font-family:inherit; cursor:pointer; }
+  button:focus-visible, a:focus-visible, [tabindex]:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:2px;
+  }
+
+  .ribbon{
+    height:5px;
+    background:linear-gradient(90deg, var(--seal), var(--gold) 50%, var(--seal));
+  }
+
+  .wrap{
+    max-width:740px;
+    margin:0 auto;
+    padding:28px 20px 60px;
+  }
+
+  /* ---- top bar ---- */
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+  }
+  .file-tag{
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .lang-switch{
+    display:flex;
+    gap:6px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px;
+    background:rgba(255,255,255,0.25);
+  }
+  .lang-switch button{
+    border:none;
+    background:transparent;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink-soft);
+    transition:background .15s, color .15s;
+  }
+  .lang-switch button.active{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  /* ---- hero ---- */
+  .hero{ margin-bottom:30px; }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--seal);
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  h1{
+    font-size:32px;
+    line-height:1.15;
+    margin:0 0 14px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:560px;
+    margin:0 0 24px;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .btn-primary{
+    background:var(--seal);
+    color:var(--paper);
+    border:none;
+    padding:13px 22px;
+    border-radius:var(--radius);
+    font-size:15px;
+    font-weight:600;
+    box-shadow:0 3px 0 rgba(32,47,73,0.25);
+    transition:transform .12s;
+  }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .btn-ghost{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:12px 18px;
+    border-radius:var(--radius);
+    font-size:14px;
+    font-weight:500;
+  }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* ---- path chips on intro ---- */
+  .chips{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:28px;
+  }
+  .chip{
+    border:1px dashed var(--line);
+    border-radius:8px;
+    padding:14px 8px;
+    text-align:center;
+    background:rgba(255,255,255,0.2);
+  }
+  .chip svg{ width:26px; height:26px; stroke:var(--ink); margin-bottom:8px; }
+  .chip-name{ font-size:12px; font-weight:600; line-height:1.3; }
+
+  /* ---- perforation divider ---- */
+  .perf{
+    height:14px;
+    margin:34px 0;
+    background-image:radial-gradient(circle, var(--paper) 2.5px, transparent 2.6px);
+    background-size:14px 14px;
+    background-position:center;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+
+  /* ---- quiz ---- */
+  .progress-row{
+    display:flex;
+    gap:5px;
+    margin-bottom:10px;
+  }
+  .progress-seg{
+    flex:1;
+    height:6px;
+    border-radius:3px;
+    background:rgba(32,47,73,0.12);
+  }
+  .progress-seg.filled{ background:var(--seal); }
+  .progress-label{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .qz-card{
+    background:rgba(255,255,255,0.35);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    box-shadow:0 4px 14px var(--shadow);
+  }
+  .qz-question{
+    font-size:19px;
+    font-weight:600;
+    margin:0 0 20px;
+    line-height:1.4;
+  }
+  .qz-options{ display:flex; flex-direction:column; gap:10px; }
+  .qz-option{
+    text-align:start;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,0.5);
+    border-radius:8px;
+    padding:13px 16px;
+    font-size:15px;
+    color:var(--ink);
+    transition:border-color .12s, background .12s;
+  }
+  .qz-option:hover{ border-color:var(--gold); }
+  .qz-option.selected{
+    border-color:var(--seal);
+    background:var(--seal-tint);
+    font-weight:500;
+  }
+  .qz-nav{
+    display:flex;
+    justify-content:space-between;
+    margin-top:22px;
+  }
+
+  /* ---- results ---- */
+  .dossier-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+  }
+  .stamp{
+    width:128px;
+    height:128px;
+    border-radius:50%;
+    border:3px double var(--seal);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transform:rotate(-7deg);
+    color:var(--seal);
+    flex:none;
+    background:rgba(138,51,36,0.05);
+  }
+  .stamp .pct{ font-size:30px; font-weight:700; line-height:1; }
+  .stamp .pct-label{ font-size:9px; letter-spacing:0.08em; text-transform:uppercase; margin-top:2px;}
+  .stamp .stamp-name{ font-size:10px; font-weight:600; text-align:center; padding:0 10px; margin-top:4px; line-height:1.2; }
+
+  .bars{ margin:20px 0 26px; display:flex; flex-direction:column; gap:10px; }
+  .bar-row{ display:flex; align-items:center; gap:10px; font-size:13px; }
+  .bar-label{ width:120px; flex:none; color:var(--ink-soft); }
+  .bar-track{ flex:1; height:9px; border-radius:5px; background:rgba(32,47,73,0.10); overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--ink-soft); border-radius:5px; }
+  .bar-fill.top{ background:var(--seal); }
+  .bar-pct{ width:38px; text-align:end; flex:none; }
+
+  .hybrid-note{
+    border:1px solid var(--gold);
+    background:rgba(150,122,63,0.08);
+    border-radius:8px;
+    padding:12px 16px;
+    font-size:14px;
+    margin-bottom:26px;
+  }
+
+  .section-label{
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--seal);
+    font-weight:600;
+    margin:0 0 8px;
+  }
+  .overview-text{ font-size:15px; margin:0 0 26px; }
+
+  .tabs{ display:flex; gap:4px; border-bottom:1px solid var(--line); margin-bottom:18px; flex-wrap:wrap; }
+  .tab-btn{
+    background:none;
+    border:none;
+    padding:10px 14px;
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--ink-soft);
+    border-bottom:2px solid transparent;
+    margin-bottom:-1px;
+  }
+  .tab-btn.active{ color:var(--ink); border-bottom-color:var(--seal); font-weight:600; }
+  .tab-panel{ font-size:15px; margin-bottom:28px; }
+
+  .steps-list{ list-style:none; margin:0 0 28px; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .steps-list li{ display:flex; gap:12px; font-size:15px; align-items:baseline; }
+  .step-num{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--seal); flex:none; width:22px; }
+
+  .resources-list{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:30px; }
+  .resource-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:5px 10px;
+    background:rgba(255,255,255,0.4);
+  }
+
+  .accordion-item{ border:1px solid var(--line); border-radius:8px; margin-bottom:10px; overflow:hidden; }
+  .accordion-head{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 16px;
+    background:rgba(255,255,255,0.3);
+    border:none;
+    font-size:15px;
+    font-weight:600;
+    text-align:start;
+  }
+  .accordion-head svg{ width:20px; height:20px; stroke:var(--ink); flex:none; }
+  .accordion-chevron{ margin-inline-start:auto; transition:transform .15s; }
+  .accordion-item.open .accordion-chevron{ transform:rotate(90deg); }
+  .accordion-body{ padding:0 18px 18px; display:none; }
+  .accordion-item.open .accordion-body{ display:block; }
+
+  .restart-row{ margin-top:10px; margin-bottom:30px; }
+
+  .save-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:16px;
+    margin-bottom:30px;
+  }
+  .btn-save{
+    background:transparent;
+    border:1.5px solid var(--gold);
+    color:var(--gold);
+    padding:10px 18px;
+    border-radius:var(--radius);
+    font-size:14px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    transition:background .12s, color .12s;
+  }
+  .btn-save:hover{ background:var(--gold); color:var(--paper); }
+  .btn-save.saved{ background:var(--gold); color:var(--paper); }
+  .save-note{ font-size:13px; color:var(--ink-soft); font-style:italic; }
+  .saved-banner{
+    border:1px solid var(--gold);
+    background:rgba(150,122,63,0.08);
+    border-radius:8px;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:24px;
+    flex-wrap:wrap;
+  }
+  .saved-banner-text{ font-size:14px; color:var(--ink); }
+  .saved-banner-text strong{ display:block; font-size:15px; margin-bottom:2px; }
+
+  .signals-box{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,0.3);
+    border-radius:8px;
+    padding:16px 18px;
+    margin-bottom:26px;
+  }
+
+  /* ---- section header in quiz ---- */
+  .sec-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .sec-dots{ display:flex; gap:5px; }
+  .sec-dot{
+    width:9px; height:9px; border-radius:50%;
+    background:rgba(32,47,73,0.15);
+  }
+  .sec-dot.active{ background:var(--seal); }
+  .sec-dot.done{ background:var(--gold); }
+  .sec-name{ font-size:12px; font-weight:600; color:var(--ink-soft); letter-spacing:0.06em; text-transform:uppercase; }
+
+  /* ---- timeline ---- */
+  .timeline{ display:flex; flex-direction:column; gap:0; margin-bottom:28px; }
+  .tl-item{ display:flex; gap:0; }
+  .tl-left{
+    display:flex; flex-direction:column; align-items:center;
+    width:36px; flex:none;
+  }
+  .tl-dot{
+    width:13px; height:13px; border-radius:50%;
+    border:2px solid var(--seal); background:var(--paper);
+    flex:none; margin-top:3px;
+  }
+  .tl-line{ width:2px; background:var(--line); flex:1; min-height:20px; }
+  .tl-content{ padding-bottom:22px; padding-inline-start:4px; flex:1; }
+  .tl-period{ font-size:12px; font-weight:700; color:var(--seal); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px; }
+  .tl-actions{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px; }
+  .tl-actions li{ font-size:14px; padding-inline-start:12px; position:relative; color:var(--ink); }
+  .tl-actions li::before{ content:'–'; position:absolute; inset-inline-start:0; color:var(--ink-soft); }
+
+  /* ---- legal checklist ---- */
+  .legal-list{ list-style:none; margin:0 0 26px; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .legal-list li{ display:flex; gap:10px; font-size:14px; align-items:baseline; }
+  .legal-check{ color:var(--seal); font-size:13px; flex:none; }
+
+  /* ---- watch-out box ---- */
+  .watchout-box{
+    border-inline-start:3px solid var(--seal);
+    background:rgba(138,51,36,0.04);
+    padding:14px 16px;
+    border-radius:0 8px 8px 0;
+    margin-bottom:26px;
+  }
+  .watchout-list{ list-style:none; margin:4px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .watchout-list li{ font-size:14px; padding-inline-start:14px; position:relative; }
+  .watchout-list li::before{ content:'!'; font-weight:700; color:var(--seal); position:absolute; inset-inline-start:0; }
+
+  /* ---- plan B ---- */
+  .planb-box{
+    border:1px dashed var(--gold);
+    border-radius:8px;
+    padding:14px 18px;
+    margin-bottom:28px;
+    font-size:14px;
+    background:rgba(150,122,63,0.05);
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding-top:18px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  footer p{ margin:0 0 6px; }
+
+  @media (max-width:560px){
+    h1{ font-size:26px; }
+    .chips{ grid-template-columns:repeat(2,1fr); }
+    .stamp{ width:104px; height:104px; }
+    .stamp .pct{ font-size:24px; }
+    .bar-label{ width:88px; font-size:12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body class="lang-fr">
+<div class="ribbon"></div>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="file-tag mono" id="fileTag">DOSSIER N° —</span>
+    <div class="lang-switch" id="langSwitch">
+      <button data-action="set-lang" data-lang="fr">FR</button>
+      <button data-action="set-lang" data-lang="en">EN</button>
+      <button data-action="set-lang" data-lang="ar">عربي</button>
+    </div>
+  </div>
+
+  <div id="app"></div>
+
+  <footer>
+    <p id="disclaimerText"></p>
+    <p id="footerCredit" class="mono"></p>
+  </footer>
+
+</div>
+
+<script>
+// ==== I18N TEXT ====
+const TEXT = {
+  fr: {
+    fileTag: "DOSSIER N°",
+    eyebrow: "Auto-évaluation de carrière",
+    title: "Le Dossier de Carrière",
+    subtitle: "Le test qui détermine la voie la plus sûre pour ta situation — état, privé, entrepreneuriat ou indépendant — et le chemin concret pour y arriver.",
+    startBtn: "Commencer le diagnostic",
+    exploreBtn: "Explorer les 4 voies sans le test",
+    questionLabel: "Question",
+    ofLabel: "sur",
+    nextBtn: "Suivant",
+    backBtn: "Précédent",
+    seeResultsBtn: "Voir mon résultat",
+    restartBtn: "Refaire le diagnostic",
+    saveBtn: "Sauvegarder mes résultats",
+    savedBtn: "Résultats sauvegardés ✓",
+    saveNote: "Sauvegardé dans ce navigateur",
+    loadHeading: "Résultats sauvegardés",
+    loadSubtext: "Tu as déjà complété le test.",
+    loadBtn: "Revoir mes résultats",
+    loadRestartBtn: "Refaire le test",
+    signalsHeading: "Ce qui a orienté ce résultat",
+    signalsIntro: "Tes réponses sur ces points ont le plus pesé dans le diagnostic :",
+    timelineHeading: "Ta feuille de route",
+    legalHeading: "Tes démarches légales clés",
+    watchOutHeading: "Erreurs fréquentes à éviter",
+    planBHeading: "Et si ça ne marche pas — Plan B",
+    sectionLabel: "Section",
+    resultsHeading: "Ton résultat",
+    pctLabel: "correspondance",
+    recommendedStamp: "VOIE RECOMMANDÉE",
+    overviewLabel: "Ce que c'est, sans filtre",
+    tabAcademic: "Par ton parcours académique",
+    tabSkills: "Par tes hobbies & compétences",
+    tabExperience: "Par ton expérience de vie",
+    stepsHeading: "Tes premiers pas concrets",
+    resourcesHeading: "Plateformes et ressources à vérifier",
+    otherPathsHeading: "Explorer les 3 autres voies",
+    disclaimerText: "Cet outil est une auto-évaluation, pas un document administratif officiel ni un conseil juridique. Les conditions de concours, plafonds fiscaux et taux CNSS changent à chaque loi de finances : vérifie toujours les chiffres exacts sur la plateforme officielle concernée avant de décider.",
+    footerCredit: "Un outil Mentalness",
+    hybridLead: "Profil hybride détecté.",
+    hybridMid: "Ton profil correspond presque autant à",
+    hybridEnd: "qu'à",
+    hybridTail: "— beaucoup de gens cumulent les deux : par exemple un poste salarié ou public avec une activité complémentaire d'auto-entrepreneur, ce que la loi autorise explicitement."
+  },
+  en: {
+    fileTag: "FILE NO.",
+    eyebrow: "Career self-assessment",
+    title: "The Career Dossier",
+    subtitle: "The test that finds the safest path for your situation — public sector, private sector, entrepreneurship, or independent work — and the concrete route to get there.",
+    startBtn: "Start the assessment",
+    exploreBtn: "Browse all 4 paths without the test",
+    questionLabel: "Question",
+    ofLabel: "of",
+    nextBtn: "Next",
+    backBtn: "Back",
+    seeResultsBtn: "See my result",
+    restartBtn: "Retake the assessment",
+    saveBtn: "Save my results",
+    savedBtn: "Results saved ✓",
+    saveNote: "Saved in this browser",
+    loadHeading: "Saved results found",
+    loadSubtext: "You've already completed the assessment.",
+    loadBtn: "Review my results",
+    loadRestartBtn: "Retake the test",
+    signalsHeading: "What drove this result",
+    signalsIntro: "These specific answers weighed most in the diagnosis:",
+    timelineHeading: "Your roadmap",
+    legalHeading: "Key legal steps",
+    watchOutHeading: "Common mistakes to avoid",
+    planBHeading: "If it doesn't work — Plan B",
+    sectionLabel: "Section",
+    resultsHeading: "Your result",
+    pctLabel: "match",
+    recommendedStamp: "RECOMMENDED PATH",
+    overviewLabel: "What it actually is",
+    tabAcademic: "Through your academic background",
+    tabSkills: "Through your hobbies & skills",
+    tabExperience: "Through your life experience",
+    stepsHeading: "Your concrete first steps",
+    resourcesHeading: "Official platforms & resources to check",
+    otherPathsHeading: "Explore the other 3 paths",
+    disclaimerText: "This tool is a self-assessment, not an official administrative document or legal advice. Concours conditions, tax ceilings, and CNSS rates change with every loi de finances — always confirm exact figures on the relevant official platform before deciding.",
+    footerCredit: "A Mentalness tool",
+    hybridLead: "Hybrid profile detected.",
+    hybridMid: "Your profile fits",
+    hybridEnd: "almost as well as",
+    hybridTail: "— many people combine both: for example a salaried or public post alongside a complementary auto-entrepreneur activity, which the law explicitly allows."
+  },
+  ar: {
+    fileTag: "رقم الملف",
+    eyebrow: "تقييم ذاتي للمسار المهني",
+    title: "ملف المسار المهني",
+    subtitle: "الاختبار الذي يحدّد لك أأمن مسار مهني حسب وضعيتك — القطاع العام، القطاع الخاص، الباعث الذاتي، أو العمل المستقل — والطريق العملي للوصول إليه.",
+    startBtn: "ابدأ التقييم",
+    exploreBtn: "تصفّح المسارات الأربعة دون الاختبار",
+    questionLabel: "سؤال",
+    ofLabel: "من",
+    nextBtn: "التالي",
+    backBtn: "السابق",
+    seeResultsBtn: "شاهد نتيجتي",
+    restartBtn: "أعد التقييم",
+    saveBtn: "احفظ نتائجي",
+    savedBtn: "تم حفظ النتائج ✓",
+    saveNote: "محفوظ في هذا المتصفح",
+    loadHeading: "نتائج محفوظة موجودة",
+    loadSubtext: "لقد أكملت التقييم مسبقا.",
+    loadBtn: "مراجعة نتائجي",
+    loadRestartBtn: "إعادة الاختبار",
+    signalsHeading: "ما الذي قاد إلى هذه النتيجة",
+    signalsIntro: "هذه الإجابات المحددة أثّرت أكثر في التشخيص:",
+    timelineHeading: "خارطة طريقك",
+    legalHeading: "الخطوات القانونية الأساسية",
+    watchOutHeading: "أخطاء شائعة يجب تجنبها",
+    planBHeading: "وإذا لم ينجح — الخطة البديلة",
+    sectionLabel: "المحور",
+    resultsHeading: "نتيجتك",
+    pctLabel: "نسبة التوافق",
+    recommendedStamp: "المسار الموصى به",
+    overviewLabel: "ما هو هذا المسار بدون تجميل",
+    tabAcademic: "عبر مسارك الأكاديمي",
+    tabSkills: "عبر هواياتك ومهاراتك",
+    tabExperience: "عبر خبرتك في الحياة",
+    stepsHeading: "خطواتك العملية الأولى",
+    resourcesHeading: "منصات وموارد رسمية يجب التحقق منها",
+    otherPathsHeading: "تصفّح المسارات الثلاثة الأخرى",
+    disclaimerText: "هذه الأداة وسيلة للتقييم الذاتي، وليست وثيقة إدارية رسمية أو استشارة قانونية. شروط المناظرات والسقوف الجبائية ونسب الضمان الاجتماعي تتغيّر مع كل قانون مالية، فتأكد دائما من الأرقام الدقيقة عبر المنصة الرسمية المعنية قبل اتخاذ القرار.",
+    footerCredit: "أداة من Mentalness",
+    hybridLead: "تم رصد ملف مزدوج.",
+    hybridMid: "يتوافق ملفك مع",
+    hybridEnd: "بنسبة قريبة من",
+    hybridTail: "— كثيرون يجمعون بين الاثنين: مثلا وظيفة قارة أو عمل بالقطاع الخاص مع نشاط تكميلي كباعث ذاتي، وهو أمر يسمح به القانون صراحة."
+  }
+}; // PLACEHOLDER_TEXT
+
+// ==== ICONS ====
+const ICONS = {
+  etat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9L12 3l9 6"/><path d="M4 9h16"/><path d="M6 9v9M10 9v9M14 9v9M18 9v9"/><path d="M3 20h18"/></svg>',
+  prive: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.5"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>',
+  entre: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V11"/><path d="M12 11C12 7 9 6 6 6c0 4 2 6 6 6Z"/><path d="M12 14C12 10 15 9 18 9c0 4-2 6-6 6Z"/><path d="M5 21h14"/></svg>',
+  indep: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5 13 13l-3.5 1.5L11 11l3.5-1.5Z"/></svg>'
+}; // PLACEHOLDER_ICONS
+
+// ==== QUESTIONS ====
+const QUESTIONS = [
+  // ── Section 1: Ton parcours ─────────────────────────────────────────────
+  { id:1, sec:1,
+    text:{ fr:"Quelle est ta situation principale en ce moment ?",
+           en:"What is your current main status?",
+           ar:"ما هي وضعيتك الرئيسية حاليا؟" },
+    options:[
+      { text:{ fr:"Salarié·e dans le secteur public ou une administration", en:"Employed in the public sector or administration", ar:"أجير في القطاع العام أو إدارة عمومية" }, score:{etat:3,prive:1,entre:0,indep:0} },
+      { text:{ fr:"Salarié·e dans le secteur privé", en:"Employed in the private sector", ar:"أجير في القطاع الخاص" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Sans emploi, en recherche active", en:"Unemployed, actively looking", ar:"بدون عمل، أبحث بنشاط" }, score:{etat:2,prive:2,entre:0,indep:0} },
+      { text:{ fr:"Étudiant·e, diplômé·e récent·e ou en reconversion", en:"Student, recent graduate, or career changer", ar:"طالب أو متخرج حديثا أو في مرحلة تحول مهني" }, score:{etat:1,prive:1,entre:1,indep:0} }
+    ]},
+  { id:2, sec:1,
+    text:{ fr:"Combien d'années d'expérience professionnelle pertinente as-tu ?",
+           en:"How many years of relevant professional experience do you have?",
+           ar:"كم سنة من الخبرة المهنية ذات الصلة لديك؟" },
+    options:[
+      { text:{ fr:"Moins de 2 ans — je débute vraiment", en:"Less than 2 years — I'm just starting out", ar:"أقل من سنتين — أنا في بداية مساري" }, score:{etat:2,prive:1,entre:0,indep:0} },
+      { text:{ fr:"2 à 5 ans — j'ai une base solide mais je construis encore", en:"2 to 5 years — solid base, still building", ar:"من 2 إلى 5 سنوات — لدي أساس جيد ولا أزال أبني" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"6 à 10 ans — j'ai une vraie expertise dans mon domaine", en:"6 to 10 years — real expertise in my field", ar:"من 6 إلى 10 سنوات — لدي خبرة حقيقية في مجالي" }, score:{etat:0,prive:1,entre:2,indep:2} },
+      { text:{ fr:"Plus de 10 ans — j'ai du recul, des réseaux et des compétences pointues", en:"More than 10 years — track record, networks, specialized skills", ar:"أكثر من 10 سنوات — تجربة متراكمة وشبكة علاقات ومهارات متخصصة" }, score:{etat:0,prive:0,entre:2,indep:3} }
+    ]},
+  { id:3, sec:1,
+    text:{ fr:"Dans quel grand domaine se situe ta formation ou ton expérience principale ?",
+           en:"What broad sector does your training or main experience fall in?",
+           ar:"في أي مجال رئيسي تقع تكوينك أو خبرتك الأساسية؟" },
+    options:[
+      { text:{ fr:"Service public, enseignement, santé, droit, travail social", en:"Public service, education, health, law, social work", ar:"الخدمة العمومية، التعليم، الصحة، القانون، العمل الاجتماعي" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Commerce, finance, gestion, ingénierie, informatique, RH", en:"Business, finance, management, engineering, IT, HR", ar:"التجارة، المالية، التسيير، الهندسة، المعلوماتية، الموارد البشرية" }, score:{etat:0,prive:3,entre:1,indep:0} },
+      { text:{ fr:"Créatif, culturel, numérique, design, communication, événementiel", en:"Creative, cultural, digital, design, communication, events", ar:"الإبداع، الثقافة، الرقمي، التصميم، الاتصال، تنظيم الفعاليات" }, score:{etat:0,prive:0,entre:2,indep:2} },
+      { text:{ fr:"Commerce de détail, hôtellerie, artisanat, services, logistique, agriculture", en:"Retail, hospitality, crafts, services, logistics, agriculture", ar:"التجارة، الفندقة، الحرف اليدوية، الخدمات، اللوجستيك، الفلاحة" }, score:{etat:0,prive:0,entre:2,indep:2} }
+    ]},
+  { id:4, sec:1,
+    text:{ fr:"As-tu déjà généré un revenu de façon indépendante — même informellement ?",
+           en:"Have you ever generated income independently — even informally?",
+           ar:"هل سبق أن حققت دخلا بشكل مستقل، حتى لو بصورة غير رسمية؟" },
+    options:[
+      { text:{ fr:"Oui, régulièrement : clients, cours particuliers, projets, contenu…", en:"Yes, regularly — clients, private lessons, projects, content…", ar:"نعم، بانتظام: حرفاء، دروس خصوصية، مشاريع، محتوى رقمي..." }, score:{etat:0,prive:0,entre:1,indep:3} },
+      { text:{ fr:"Oui, une ou deux fois mais pas de façon régulière", en:"Yes, once or twice but not regularly", ar:"نعم، مرة أو مرتين لكن ليس بانتظام" }, score:{etat:0,prive:0,entre:2,indep:1} },
+      { text:{ fr:"Pas encore, mais j'ai une idée claire de ce que je pourrais proposer", en:"Not yet, but I have a clear idea of what I could offer", ar:"ليس بعد، لكن لدي فكرة واضحة عما يمكنني تقديمه" }, score:{etat:0,prive:0,entre:3,indep:0} },
+      { text:{ fr:"Non, et je n'y ai jamais vraiment pensé sérieusement", en:"No, and I've never seriously thought about it", ar:"لا، ولم أفكر في الأمر بجدية من قبل" }, score:{etat:2,prive:2,entre:0,indep:0} }
+    ]},
+
+  // ── Section 2: Ta personnalité au travail ────────────────────────────────
+  { id:5, sec:2,
+    text:{ fr:"Comment fonctionnes-tu le mieux au travail ?",
+           en:"How do you work best?",
+           ar:"كيف تعمل بشكل أفضل؟" },
+    options:[
+      { text:{ fr:"Avec des tâches claires, un rôle défini et un planning prévisible", en:"With clear tasks, a defined role, and a predictable schedule", ar:"بمهام واضحة، دور محدد، وجدول زمني متوقع" }, score:{etat:3,prive:1,entre:0,indep:0} },
+      { text:{ fr:"En équipe avec un objectif commun, mais une vraie autonomie sur le comment", en:"In a team with shared goals, but real autonomy on how I work", ar:"ضمن فريق بهدف مشترك، لكن مع استقلالية حقيقية في طريقة العمل" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Seul·e, guidé·e par mes propres délais et mes résultats", en:"Alone, driven by my own deadlines and results", ar:"منفردا، مدفوعا بمواعيدي الخاصة ونتائجي" }, score:{etat:0,prive:0,entre:0,indep:3} },
+      { text:{ fr:"En pilotant ou construisant quelque chose de A à Z", en:"Leading or building something from scratch to delivery", ar:"بقيادة أو بناء شيء من البداية إلى النهاية" }, score:{etat:0,prive:0,entre:3,indep:0} }
+    ]},
+  { id:6, sec:2,
+    text:{ fr:"Quand un projet échoue ou qu'un client ne renouvelle pas, quelle est ta vraie réaction ?",
+           en:"When a project fails or a client doesn't renew, what's your honest reaction?",
+           ar:"عندما يفشل مشروع أو لا يجدد حريف التعاقد، ما هي ردة فعلك الحقيقية؟" },
+    options:[
+      { text:{ fr:"Je le vis mal — j'ai besoin de stabilité pour fonctionner à mon niveau", en:"I take it hard — I need stability to perform at my best", ar:"أتأثر كثيرا، أحتاج إلى استقرار لأعمل بأفضل مستوى" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Je fais un bilan avec mon équipe et je passe à autre chose", en:"I debrief with my team and move on", ar:"أجري تقييما مع فريقي وأمضي قدما" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"J'analyse, j'ajuste, et je réessaie de façon autonome", en:"I analyze, adjust, and try again independently", ar:"أحلل، أعدل، وأحاول مجددا بشكل مستقل" }, score:{etat:0,prive:0,entre:2,indep:2} },
+      { text:{ fr:"Ça m'énergise — l'échec est juste une donnée pour m'améliorer", en:"It energizes me — failure is just data to improve", ar:"يمنحني طاقة، الفشل مجرد معطى للتحسن" }, score:{etat:0,prive:0,entre:3,indep:1} }
+    ]},
+  { id:7, sec:2,
+    text:{ fr:"Où part naturellement ton énergie au travail ?",
+           en:"Where does your energy go naturally at work?",
+           ar:"أين يتجه طبيعيا نشاطك في العمل؟" },
+    options:[
+      { text:{ fr:"Maintenir la qualité, respecter les processus, bien faire les choses", en:"Maintaining quality, following process, doing things properly", ar:"الحفاظ على الجودة، اتباع الإجراءات، إتقان الأشياء" }, score:{etat:2,prive:2,entre:0,indep:0} },
+      { text:{ fr:"Gérer des personnes, enseigner, influencer, encadrer", en:"Managing people, teaching, influencing, mentoring", ar:"إدارة الأشخاص، التعليم، التأثير، التوجيه" }, score:{etat:1,prive:2,entre:1,indep:0} },
+      { text:{ fr:"Créer, produire, concevoir — quelque chose de tangible", en:"Creating, producing, designing — something tangible", ar:"الإنشاء، الإنتاج، التصميم — شيء ملموس" }, score:{etat:0,prive:0,entre:2,indep:2} },
+      { text:{ fr:"Résoudre des problèmes concrets pour des personnes précises", en:"Solving concrete problems for specific people", ar:"حل مشكلات ملموسة لأشخاص بعينهم" }, score:{etat:0,prive:0,entre:0,indep:3} }
+    ]},
+  { id:8, sec:2,
+    text:{ fr:"Imagine ton lundi idéal à 9h. Où es-tu ?",
+           en:"Picture your ideal Monday at 9am. Where are you?",
+           ar:"تخيّل يوم اثنينك المثالي في الساعة التاسعة صباحا. أين أنت؟" },
+    options:[
+      { text:{ fr:"Dans une institution ou un bureau avec des collègues et un programme structuré", en:"In an institution or office with colleagues and a structured agenda", ar:"في مؤسسة أو مكتب مع زملاء وبرنامج يومي منظم" }, score:{etat:3,prive:1,entre:0,indep:0} },
+      { text:{ fr:"Dans un open space ou une réunion d'équipe, projets en cours", en:"In an open space or team meeting, projects underway", ar:"في فضاء مفتوح أو اجتماع فريق، مشاريع في سير" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"À la maison, dans un café ou un espace de coworking — je gère ma journée", en:"At home, a café, or co-working — managing my own day", ar:"في البيت أو مقهى أو فضاء عمل مشترك — أسيّر يومي بنفسي" }, score:{etat:0,prive:0,entre:0,indep:3} },
+      { text:{ fr:"En réunion ou en call pour faire avancer mon projet ou mon activité", en:"In a meeting or on a call, moving my project or business forward", ar:"في اجتماع أو مكالمة لتحريك مشروعي أو نشاطي" }, score:{etat:0,prive:0,entre:3,indep:0} }
+    ]},
+  { id:9, sec:2,
+    text:{ fr:"Quel type de reconnaissance compte vraiment pour toi ?",
+           en:"What kind of recognition genuinely matters to you?",
+           ar:"أي نوع من الاعتراف يهمك فعلا؟" },
+    options:[
+      { text:{ fr:"Un titre officiel, un grade, une légitimité institutionnelle", en:"An official title, a grade, institutional legitimacy", ar:"لقب رسمي، رتبة، شرعية مؤسسية" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Une réputation professionnelle et une évolution de carrière", en:"Professional reputation and career advancement", ar:"سمعة مهنية وتطور في المسار الوظيفي" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Des clients qui reviennent, qui référencent, qui font confiance", en:"Clients who come back, refer others, and trust me", ar:"حرفاء يعودون ويحيلون غيرهم ويثقون في عملي" }, score:{etat:0,prive:0,entre:0,indep:3} },
+      { text:{ fr:"Une marque, un produit, une idée qui prend de l'ampleur sur le marché", en:"A brand, product, or idea that gains traction in the market", ar:"علامة تجارية، منتج أو فكرة تكتسب زخما في السوق" }, score:{etat:0,prive:0,entre:3,indep:0} }
+    ]},
+
+  // ── Section 3: Tes ambitions ─────────────────────────────────────────────
+  { id:10, sec:3,
+    text:{ fr:"Qu'est-ce que le succès représente concrètement pour toi dans 5 ans ?",
+           en:"What does success look like concretely for you in 5 years?",
+           ar:"ماذا يعني النجاح بالنسبة لك ملموسا بعد 5 سنوات؟" },
+    options:[
+      { text:{ fr:"Un poste stable et respecté, avec une carrière progressive et une retraite garantie", en:"A stable, respected post, with progressive career and guaranteed retirement", ar:"منصب مستقر ومحترم، مسار وظيفي تدريجي وتقاعد مضمون" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Un rôle senior, un bon salaire, peut-être un poste managérial", en:"A senior role, strong salary, maybe a management position", ar:"منصب رفيع، راتب جيد، وربما مسؤولية تسيير" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Une activité ou marque qui tourne vraiment — des clients, un chiffre d'affaires", en:"A functioning business or brand — clients, revenue, traction", ar:"نشاط أو علامة تعمل فعلا — حرفاء، رقم أعمال، زخم" }, score:{etat:0,prive:0,entre:3,indep:0} },
+      { text:{ fr:"La liberté géographique et une clientèle qui me suit où que j'aille", en:"Geographic freedom and a client base that follows me anywhere", ar:"حرية جغرافية وقاعدة حرفاء تتبعني أينما كنت" }, score:{etat:0,prive:0,entre:0,indep:3} }
+    ]},
+  { id:11, sec:3,
+    text:{ fr:"Quel type d'impact veux-tu avoir ?",
+           en:"What kind of impact do you want to have?",
+           ar:"أي نوع من التأثير تريد إحداثه؟" },
+    options:[
+      { text:{ fr:"Servir le public — éducation, santé, administration, infrastructures", en:"Serve the public — education, health, administration, infrastructure", ar:"خدمة الصالح العام — تعليم، صحة، إدارة، بنية تحتية" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Aider des organisations à mieux fonctionner et à croître", en:"Help organizations perform better and grow", ar:"مساعدة المؤسسات على الأداء الأفضل والنمو" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Construire quelque chose qui me survive — un produit, une marque, une institution", en:"Build something that outlasts me — a product, brand, or institution", ar:"بناء شيء يبقى بعدي — منتج، علامة تجارية أو مؤسسة" }, score:{etat:0,prive:0,entre:3,indep:0} },
+      { text:{ fr:"Résoudre des problèmes réels pour des gens précis que je choisis d'aider", en:"Solve real problems for specific people I choose to help", ar:"حل مشكلات حقيقية لأشخاص بعينهم أختار مساعدتهم" }, score:{etat:0,prive:0,entre:0,indep:3} }
+    ]},
+  { id:12, sec:3,
+    text:{ fr:"Comment te situes-tu par rapport à la mobilité géographique ?",
+           en:"How do you feel about geographic mobility?",
+           ar:"كيف تتعامل مع موضوع التنقل الجغرافي؟" },
+    options:[
+      { text:{ fr:"Je suis heureux·se de travailler dans une ville ou région fixe pour longtemps", en:"Happy to work in one city or region long term", ar:"سعيد بالعمل في مدينة أو جهة ثابتة لفترة طويلة" }, score:{etat:2,prive:2,entre:0,indep:0} },
+      { text:{ fr:"Je veux de la flexibilité à l'intérieur de la Tunisie", en:"I want flexibility within Tunisia", ar:"أريد مرونة داخل تونس" }, score:{etat:0,prive:1,entre:1,indep:1} },
+      { text:{ fr:"Je veux travailler avec des clients internationaux, depuis n'importe où", en:"I want to work with international clients from anywhere", ar:"أريد العمل مع حرفاء دوليين من أي مكان" }, score:{etat:0,prive:0,entre:1,indep:3} },
+      { text:{ fr:"Je veux pouvoir bouger, m'installer différemment, ne pas être bloqué·e géographiquement", en:"I want to be able to move freely, not be geographically locked", ar:"أريد إمكانية التنقل الحر وعدم الارتباط بمكان جغرافي" }, score:{etat:0,prive:0,entre:0,indep:3} }
+    ]},
+  { id:13, sec:3,
+    text:{ fr:"Quelle phrase te ressemble le plus ?",
+           en:"Which sentence sounds most like you?",
+           ar:"أي عبارة تصفك أكثر؟" },
+    options:[
+      { text:{ fr:"Je veux évoluer dans quelque chose de solide, avec de vrais avantages.", en:"I want to grow inside something solid, with real benefits.", ar:"أريد التطور داخل شيء ثابت بامتيازات حقيقية." }, score:{etat:2,prive:2,entre:0,indep:0} },
+      { text:{ fr:"Je veux construire quelque chose qui m'appartient vraiment.", en:"I want to build something that's truly mine.", ar:"أريد بناء شيء يخصني فعلا." }, score:{etat:0,prive:0,entre:3,indep:0} },
+      { text:{ fr:"Je veux choisir avec qui je travaille et ne jamais être coincé·e quelque part.", en:"I want to choose who I work with and never be stuck anywhere.", ar:"أريد اختيار من أعمل معه وعدم الارتباط بأي مكان." }, score:{etat:0,prive:0,entre:0,indep:3} },
+      { text:{ fr:"Je veux un revenu fiable tout en construisant autre chose en parallèle.", en:"I want reliable income while building something else on the side.", ar:"أريد دخلا موثوقا بينما أبني شيئا آخر بالتوازي." }, score:{etat:0,prive:2,entre:0,indep:1} }
+    ]},
+
+  // ── Section 4: Tes ressources ────────────────────────────────────────────
+  { id:14, sec:4,
+    text:{ fr:"Si tes revenus s'arrêtaient demain, que se passerait-il vraiment ?",
+           en:"If your income stopped tomorrow, what would actually happen?",
+           ar:"لو توقف دخلك غدا، ماذا سيحدث فعليا؟" },
+    options:[
+      { text:{ fr:"J'ai une épargne ou un soutien familial qui couvrirait 6 mois ou plus", en:"I have savings or family support for 6+ months — no crisis", ar:"لدي مدخرات أو دعم عائلي يكفي 6 أشهر أو أكثر" }, score:{etat:0,prive:0,entre:3,indep:2} },
+      { text:{ fr:"Je tiendrais 1 à 3 mois avant que ça devienne tendu", en:"I'd manage 1 to 3 months before it gets tight", ar:"أصمد من شهر إلى ثلاثة أشهر قبل أن يصبح الوضع ضاغطا" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Il me faudrait un revenu en quelques semaines — pas de coussin", en:"I'd need income within weeks — no cushion", ar:"أحتاج دخلا في غضون أسابيع، لا يوجد احتياط" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Honnêtement, je n'ai jamais vraiment calculé ça", en:"Honestly, I've never actually calculated this", ar:"بصراحة، لم أحسب هذا يوما" }, score:{etat:1,prive:1,entre:0,indep:0} }
+    ]},
+  { id:15, sec:4,
+    text:{ fr:"As-tu des obligations financières importantes — personnes à charge ou dettes régulières ?",
+           en:"Do you have significant financial obligations — dependents or recurring debt?",
+           ar:"هل لديك التزامات مالية مهمة، أشخاص في كفالتك أو ديون منتظمة؟" },
+    options:[
+      { text:{ fr:"Oui, avec très peu de marge pour un trou de revenu", en:"Yes, with little margin for any income gap", ar:"نعم، بهامش ضئيل جدا لأي انقطاع في الدخل" }, score:{etat:3,prive:1,entre:0,indep:0} },
+      { text:{ fr:"Oui, mais j'ai une certaine flexibilité", en:"Yes, but with some flexibility", ar:"نعم، لكن مع بعض المرونة" }, score:{etat:1,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Pas vraiment — je suis surtout responsable de moi-même", en:"Not really — I'm mostly responsible for myself right now", ar:"ليس فعلا، أنا مسؤول أساسا عن نفسي" }, score:{etat:0,prive:0,entre:2,indep:2} },
+      { text:{ fr:"Aucune personne à charge et un coussin financier derrière moi", en:"No dependents and a financial cushion behind me", ar:"لا أشخاص تحت كفالتي ولدي احتياط مالي" }, score:{etat:0,prive:0,entre:3,indep:1} }
+    ]},
+  { id:16, sec:4,
+    text:{ fr:"Comment ton diplôme ou ta qualification se positionne-t-il sur le marché ?",
+           en:"How does your diploma or qualification map to the market?",
+           ar:"كيف تتموضع شهادتك أو تأهيلك في سوق الشغل؟" },
+    options:[
+      { text:{ fr:"Il correspond à un grade de concours ou à une profession réglementée", en:"It matches a concours grade or a regulated profession exactly", ar:"يتطابق مع رتبة مناظرة أو مهنة منظمة بدقة" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Il est reconnu et valorisé par des employeurs privés dans mon secteur", en:"Recognized and valued by private sector employers in my field", ar:"معترف به ومقدّر من قبل مشغّلين في القطاع الخاص في مجالي" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Ma vraie valeur c'est ce que je produis, pas le papier", en:"My real value is what I produce, not the degree", ar:"قيمتي الحقيقية هي ما أنتجه، لا الشهادة" }, score:{etat:0,prive:0,entre:1,indep:3} },
+      { text:{ fr:"Mes diplômes ne correspondent plus à ce que je veux faire", en:"My credentials no longer match what I actually want to do", ar:"شهاداتي لا تتطابق بعد مع ما أريد القيام به" }, score:{etat:0,prive:0,entre:3,indep:1} }
+    ]},
+  { id:17, sec:4,
+    text:{ fr:"As-tu une compétence ou un savoir-faire que des gens paient ou paieraient clairement ?",
+           en:"Do you have a skill or know-how people pay for — or clearly would?",
+           ar:"هل لديك مهارة أو معرفة يدفع الناس مقابلها أو سيدفعون مقابلها بوضوح؟" },
+    options:[
+      { text:{ fr:"Oui, et j'ai déjà des clients ou des demandes régulières", en:"Yes, and I already have regular clients or requests", ar:"نعم، ولدي بالفعل حرفاء أو طلبات منتظمة" }, score:{etat:0,prive:0,entre:1,indep:3} },
+      { text:{ fr:"Oui, de façon informelle — quelques fois sans cadre officiel", en:"Yes, informally — a few times without a formal setup", ar:"نعم، بشكل غير رسمي، بضع مرات بدون إطار رسمي" }, score:{etat:0,prive:0,entre:2,indep:2} },
+      { text:{ fr:"Pas vraiment — ma valeur est dans l'exécution d'un rôle bien défini", en:"Not really — my value is in executing a well-defined role", ar:"ليس فعلا، قيمتي في تنفيذ دور محدد جيدا" }, score:{etat:2,prive:2,entre:0,indep:0} },
+      { text:{ fr:"J'en ai une mais je n'ai jamais essayé de la monétiser", en:"I have one but have never tried to monetize it", ar:"لدي مهارة كهذه لكنني لم أحاول تحويلها إلى دخل" }, score:{etat:0,prive:0,entre:3,indep:1} }
+    ]},
+  { id:18, sec:4,
+    text:{ fr:"Comment est ton réseau professionnel actuel ?",
+           en:"How is your current professional network?",
+           ar:"كيف هي شبكة علاقاتك المهنية الحالية؟" },
+    options:[
+      { text:{ fr:"Des contacts solides dans des institutions ou administrations publiques", en:"Strong contacts in public institutions or administration", ar:"علاقات متينة في مؤسسات أو إدارات عمومية" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"De bonnes relations avec des entreprises ou employeurs du privé", en:"Good relationships with private companies or employers", ar:"علاقات جيدة مع شركات أو مشغّلين في القطاع الخاص" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Des relations directes avec des clients potentiels ou des collaborateurs", en:"Direct relationships with potential clients or collaborators", ar:"علاقات مباشرة مع حرفاء محتملين أو متعاونين" }, score:{etat:0,prive:0,entre:1,indep:3} },
+      { text:{ fr:"Je pars globalement de zéro ou presque", en:"I'm starting mostly from scratch", ar:"أنطلق من الصفر أو من شبه الصفر" }, score:{etat:1,prive:1,entre:0,indep:0} }
+    ]},
+
+  // ── Section 5: Ton rapport au risque ─────────────────────────────────────
+  { id:19, sec:5,
+    text:{ fr:"Sur le revenu, qu'est-ce qui prime en ce moment pour toi ?",
+           en:"On income, what matters most to you right now?",
+           ar:"فيما يخص الدخل، ما الأهم بالنسبة لك الآن؟" },
+    options:[
+      { text:{ fr:"Un plancher garanti, même modeste — la sécurité avant tout", en:"A guaranteed floor, even if modest — security first", ar:"حد أدنى مضمون، حتى لو كان متواضعا — الأمان قبل كل شيء" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Un salaire solide qui progresse, même avec un certain plafond", en:"A solid, growing salary, even with some ceiling", ar:"راتب ثابت ومتطور، حتى لو كان له سقف" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Aucun plafond — je préfère le risque si la montée est illimitée", en:"No ceiling at all — I prefer risk if the upside is unlimited", ar:"بلا سقف، أفضّل المخاطرة إذا كان العائد غير محدود" }, score:{etat:0,prive:0,entre:3,indep:0} },
+      { text:{ fr:"La flexibilité de combiner plusieurs sources sans en dépendre d'une seule", en:"Flexibility to combine income sources, not depend on one", ar:"مرونة الجمع بين مصادر دخل متعددة دون الاعتماد على مصدر واحد" }, score:{etat:0,prive:0,entre:0,indep:3} }
+    ]},
+  { id:20, sec:5,
+    text:{ fr:"Dans combien de temps as-tu genuinement besoin d'un vrai revenu ?",
+           en:"How quickly do you genuinely need real income?",
+           ar:"في غضون أي مدة تحتاج فعلا إلى دخل حقيقي؟" },
+    options:[
+      { text:{ fr:"Maintenant — dans 1 à 2 mois maximum", en:"Now — within 1 to 2 months at most", ar:"الآن، في غضون شهر إلى شهرين على أقصى تقدير" }, score:{etat:0,prive:2,entre:0,indep:2} },
+      { text:{ fr:"Je peux attendre 6 à 12 mois si ça mène à quelque chose de très stable", en:"I can wait 6 to 12 months if it leads somewhere very stable", ar:"يمكنني الانتظار 6 إلى 12 شهرا إذا كان الأمر يؤدي إلى شيء مستقر" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Je peux construire sur un an ou plus si le bénéfice m'appartient entièrement", en:"I can build over a year or more if the upside is fully mine", ar:"يمكنني البناء على مدى سنة أو أكثر إذا كانت الفائدة تعود لي بالكامل" }, score:{etat:0,prive:0,entre:3,indep:0} },
+      { text:{ fr:"J'en ai besoin maintenant, mais je construis aussi autre chose en parallèle", en:"I need it now, but I'm also building something else on the side", ar:"أحتاجه الآن، لكنني أبني أيضا شيئا آخر بالتوازي" }, score:{etat:0,prive:1,entre:1,indep:2} }
+    ]},
+  { id:21, sec:5,
+    text:{ fr:"Comment te sens-tu à l'idée de gérer toi-même impôts, factures et déclarations CNSS ?",
+           en:"How do you feel about managing your own taxes, invoices, and CNSS declarations?",
+           ar:"كيف تشعر حيال تولّي ضرائبك وفواتيرك وتصاريحك للضمان الاجتماعي بنفسك؟" },
+    options:[
+      { text:{ fr:"Je préfère qu'un employeur s'en charge à ma place", en:"I'd rather have an employer handle all of that", ar:"أفضّل أن يتولى مشغّل كل ذلك بدلا عني" }, score:{etat:3,prive:2,entre:0,indep:0} },
+      { text:{ fr:"Ça ne me dérange pas d'apprendre si le jeu en vaut la chandelle", en:"I don't mind learning it if the trade-off is worth it", ar:"لا مانع من التعلم إذا كانت المقايضة تستحق" }, score:{etat:0,prive:0,entre:2,indep:2} },
+      { text:{ fr:"J'aime le contrôle administratif — ça me rassure de tout suivre", en:"I actually like administrative control — tracking everything reassures me", ar:"أحب التحكم الإداري، تتبع كل شيء يطمئنني" }, score:{etat:0,prive:0,entre:2,indep:1} },
+      { text:{ fr:"Je délèguerais ça à un comptable dès que possible", en:"I'd delegate that to an accountant as soon as possible", ar:"سأفوّض ذلك لمحاسب في أقرب وقت" }, score:{etat:0,prive:0,entre:3,indep:1} }
+    ]},
+  { id:22, sec:5,
+    text:{ fr:"En te projetant 15 à 20 ans en avant, qu'est-ce qui compte le plus ?",
+           en:"Looking 15 to 20 years ahead, what matters most?",
+           ar:"بالنظر إلى 15 أو 20 سنة أمامك، ما الأهم؟" },
+    options:[
+      { text:{ fr:"Une pension et une sécurité de retraite bien définie (CNRPS)", en:"A pension and predefined retirement security (CNRPS)", ar:"جراية تقاعد وأمان واضح للتقاعد" }, score:{etat:3,prive:0,entre:0,indep:0} },
+      { text:{ fr:"Une progression stable et une bonne couverture CNSS", en:"Steady career growth and solid CNSS coverage", ar:"تطور وظيفي مستقر وتغطية جيدة للضمان الاجتماعي" }, score:{etat:0,prive:3,entre:0,indep:0} },
+      { text:{ fr:"Un actif — une activité, une marque — qui génère de la valeur sans mes heures quotidiennes", en:"An asset — a business or brand — that generates value without my daily hours", ar:"أصل، نشاط أو علامة، يولّد قيمة بدون ساعاتي اليومية" }, score:{etat:0,prive:0,entre:3,indep:0} },
+      { text:{ fr:"Une liberté maximale sur où je vis, avec qui je travaille, et comment je passe mon temps", en:"Maximum freedom over where I live, who I work with, and how I spend my time", ar:"حرية قصوى فيمن أعمل معه وأين أعيش وكيف أقضي وقتي" }, score:{etat:0,prive:0,entre:0,indep:3} }
+    ]}
+]; // PLACEHOLDER_QUESTIONS
+
+// ==== PATHS CONTENT ====
+const PATHS = {
+  etat: {
+    fr: {
+      name:"Secteur Public (État)",
+      tagline:"La Stabilité Structurée",
+      overview:"Le secteur public offre la sécurité de l'emploi la plus forte en Tunisie : un poste permanent (titularisation) après une période de stage, une pension CNRPS, et une protection difficile à égaler ailleurs. La contrepartie est réelle : l'entrée se fait par des concours qui peuvent prendre un an ou plus, les salaires de départ sont modestes, et la progression suit des règles d'ancienneté plus que de performance. Cette voie récompense la patience et la discipline aux examens plus que la rapidité.",
+      academic:"La plupart des concours sont organisés par niveau de diplôme. Un bac, un BTS/licence ou un master ouvre des grades et catégories différents — vérifie l'avis de concours sur le JORT ou tunisieconcours.tn pour connaître le diplôme exact exigé pour ton grade cible. Un diplôme généraliste suffit souvent pour les postes administratifs (catégorie A/B), tandis que les postes d'enseignement ou techniques exigent une spécialisation précise.",
+      skills:"Les compétences ne remplacent presque jamais l'exigence de diplôme, mais elles déterminent si tu réussis le concours. Un bon niveau d'écrit en français ou en arabe, l'aisance à l'oral, et les habitudes d'organisation acquises dans des clubs, associations ou expériences radio/événementiel se traduisent directement dans les épreuves écrites et orales. Si tu coaches, enseignes ou animes de façon informelle, c'est du matériau direct pour l'entretien de concours.",
+      experience:"Des années d'expérience dans un autre domaine ne te dispensent pas du concours externe, mais deux portes existent pour les profils expérimentés : les concours internes, ouverts aux contractuels ou agents déjà en poste dans une administration, et le statut d'intervenant extérieur ou vacataire, qui permet de travailler dans une institution publique sous contrat de prestation sans passer par le concours complet — souvent le point d'entrée le plus réaliste en attendant de te préparer.",
+      steps:["Identifie précisément le corps/grade visé et le diplôme qu'il exige (consulte le JORT et tunisieconcours.tn).","Mets en place une routine de préparation au concours avec d'anciennes épreuves et des écrits chronométrés.","Cherche une opportunité d'intervenant extérieur ou de vacataire dans ton domaine comme point d'entrée pendant ta préparation.","Surveille les concours ouverts chaque semaine — les délais de dépôt dépassent rarement 30 jours après l'annonce au JORT."],
+      resources:["JORT (Journal Officiel)","tunisieconcours.tn","concourstunisie.com","ANETI – emploi.nat.tn"]
+    },
+    en: {
+      name:"Public Sector (État)",
+      tagline:"Structured Stability",
+      overview:"The public sector offers Tunisia's strongest job security: a permanent post (titularisation) after a probation period, a CNRPS pension, and protection that's hard to match elsewhere. The trade-off is real: entry runs through competitive concours that can take a year or more to clear, starting salaries are modest, and promotion follows seniority rules more than performance. This path rewards patience and exam discipline over speed.",
+      academic:"Most concours are tiered by diploma level. A bac, a BTS/license, or a master's opens different grades and ranks, so check the avis de concours on JORT or tunisieconcours.tn for the exact diploma required for your target grade. A general degree is often enough for administrative posts (catégorie A/B), while teaching or technical posts require a matching specialization.",
+      skills:"Skills rarely waive the diploma requirement, but they decide whether you pass the concours. Strong written French or Arabic, public speaking, and the organizational habits built from clubs, associations, or event and radio work translate directly into the written and oral épreuves. If you coach, teach, or MC informally, that experience is concours-interview material.",
+      experience:"Years of unrelated experience don't excuse you from the concours externe, but two doors exist for experienced profiles: concours internes, open to people already working as contractuels or agents inside an administration, and the intervenant extérieur or vacataire status, which lets you work inside a public institution under a service contract without the full concours — often the realistic first foothold while you prepare.",
+      steps:["Identify the exact corps/grade you're targeting and the diploma it requires (browse JORT and tunisieconcours.tn).","Build a concours prep routine using past épreuves and timed practice writing.","Look for an intervenant extérieur or vacataire opening in your field as an entry point while you prepare.","Track open concours weekly — application windows often close within 30 days of the JORT announcement."],
+      resources:["JORT (Journal Officiel)","tunisieconcours.tn","concourstunisie.com","ANETI – emploi.nat.tn"]
+    },
+    ar: {
+      name:"القطاع العام (الدولة)",
+      tagline:"الاستقرار المُهيكل",
+      overview:"يوفر القطاع العام أقوى ضمانات الشغل في تونس: خطة قارة (الترسيم) بعد فترة تربص، وجراية تقاعد من الصندوق القومي للتقاعد والحيطة الاجتماعية، وحماية يصعب موازاتها في أي مكان آخر. لكن المقابل حقيقي: الدخول يتم عبر مناظرات قد تستغرق سنة أو أكثر، والأجور في البداية متواضعة، والترقي يخضع لقواعد الأقدمية أكثر من الأداء. هذا المسار يكافئ الصبر والانضباط في الامتحانات أكثر من السرعة.",
+      academic:"أغلب المناظرات مصنّفة حسب مستوى الشهادة. الباكالوريا أو الشهادة الجامعية (BTS/إجازة) أو الماجستير تفتح رتبا وأصنافا مختلفة — تحقق من بلاغ المناظرة في الرائد الرسمي (JORT) أو موقع tunisieconcours.tn لمعرفة الشهادة الدقيقة المطلوبة للرتبة التي تستهدفها. شهادة عامة غالبا تكفي للخطط الإدارية (الصنف أ/ب)، بينما تتطلب خطط التعليم أو التقنية تخصصا مطابقا.",
+      skills:"المهارات نادرا ما تعفيك من شرط الشهادة، لكنها تحدد نجاحك في المناظرة. مستوى جيد في الكتابة بالفرنسية أو العربية، والقدرة على التواصل الشفوي، وعادات التنظيم المكتسبة من النوادي أو الجمعيات أو العمل في الراديو أو تنظيم الفعاليات، تنعكس مباشرة في الاختبارات الكتابية والشفوية. إذا كنت تدرّب أو تعلّم أو تقدّم فعاليات بشكل غير رسمي، فهذه مادة مباشرة لمقابلة المناظرة.",
+      experience:"سنوات من الخبرة في مجال آخر لا تعفيك من المناظرة الخارجية، لكن هناك بابين للملفات ذات الخبرة: المناظرات الداخلية، المفتوحة لمن يعمل بالفعل كمتعاقد أو عون داخل إدارة، وصفة المتدخل الخارجي أو المكلّف بمهمة، التي تتيح العمل داخل مؤسسة عمومية بعقد خدمات دون المرور بالمناظرة كاملة — وهي غالبا نقطة الانطلاق الأكثر واقعية في انتظار التحضير للمناظرة.",
+      steps:["حدّد بدقة السلك/الرتبة المستهدفة والشهادة التي تتطلبها (تابع الرائد الرسمي وموقع tunisieconcours.tn).","ضع روتينا للتحضير للمناظرة باستعمال اختبارات سابقة وتمارين كتابية بوقت محدد.","ابحث عن فرصة كمتدخل خارجي أو مكلّف بمهمة في مجالك كنقطة دخول أثناء تحضيرك.","تابع المناظرات المفتوحة أسبوعيا — آجال الترشح غالبا لا تتجاوز 30 يوما بعد الإعلان في الرائد الرسمي."],
+      resources:["الرائد الرسمي (JORT)","tunisieconcours.tn","concourstunisie.com","الوكالة الوطنية للتشغيل – emploi.nat.tn"]
+    }
+  },
+  prive: {
+    fr: {
+      name:"Secteur Privé (Salarié)",
+      tagline:"La Progression Cadrée",
+      overview:"Le travail salarié dans le privé avance plus vite que le secteur public : les décisions d'embauche prennent des semaines, pas des années, et les salaires réagissent davantage à la compétence et au secteur — les multinationales, l'IT, la banque et les secteurs exportateurs paient souvent bien au-dessus de la moyenne. La CNSS et l'AMO offrent une couverture réelle, même si moins permanente que la CNRPS. La contrepartie : la sécurité de l'emploi dépend de l'entreprise et du type de contrat (CDD ou CDI), les licenciements existent réellement, et ta progression dépend bien plus de la preuve continue de ta valeur que de l'ancienneté.",
+      academic:"La plupart des postes privés bien rémunérés exigent encore un diplôme (licence, ingénieur, master), mais les entreprises pèsent davantage la réputation de l'école et ta spécialisation que ne le fait le secteur public. Un diplôme d'une école d'ingénieurs ou de commerce reconnue, ou une certification reconnue (comptabilité, IT…), ouvre des portes qu'un diplôme générique n'ouvre pas.",
+      skills:"C'est la voie où les hobbies se convertissent le plus directement en salaire. Le design graphique, la création de contenu, une deuxième ou troisième langue, la comptabilité, ou des projets de code personnels sont chacun une ligne concrète sur un CV qu'un recruteur peut vérifier en entretien. Un petit portfolio de projets réels pèse plus qu'un CV long mais générique.",
+      experience:"Les personnes en reconversion ou autodidactes se font bel et bien recruter dans le privé, surtout dans des secteurs en croissance comme l'IT, les centres d'appels/BPO et le marketing digital, où beaucoup d'employeurs testent directement les compétences plutôt que d'exiger un diplôme précis. Quelques mois de freelance ou de bénévolat dans le domaine visé, documentés et montrés, remplacent souvent des années d'études formelles.",
+      steps:["Cible 2 à 3 secteurs avec un recrutement actif et des grilles salariales correctes (regarde les offres récentes sur LinkedIn, Tanitjobs, Manarjob).","Construis un petit portfolio ou des échantillons de travail concrets, pas seulement un CV.","Clarifie ton type de contrat (CDD/CDI) et ce que les protections de l'article 30 sur la sous-traitance (loi 2025-9) couvrent ou non pour toi.","Négocie avant de signer : salaire brut vs net, base déclarée à la CNSS, et le 13e mois."],
+      resources:["LinkedIn","Tanitjobs.com","Manarjob","Keejob","ANETI – emploi.nat.tn"]
+    },
+    en: {
+      name:"Private Sector (Salaried)",
+      tagline:"Structured Growth",
+      overview:"Private-sector salaried work moves faster than the public sector: hiring decisions take weeks rather than years, and pay responds more to skill and sector — multinationals, IT, banking, and export industries often pay well above average. CNSS plus AMO give you real, if less permanent, coverage than CNRPS. The trade-off: job security depends on the company and the contract type (CDD vs CDI), layoffs are real, and your trajectory depends on continuously proving value more than on seniority.",
+      academic:"Most well-paying privé roles still gate on a diploma (license, ingénieur, master), but companies weigh the school's reputation and your specialization more than the public sector does. A degree from a recognized engineering or business program, or a recognized certification in a field like accounting or IT, opens doors a generic degree won't.",
+      skills:"This is the path where hobbies convert most directly into salary. Graphic design, content creation, a second or third language, bookkeeping, or coding side-projects are each a concrete line on a CV a recruiter can verify in an interview. A small portfolio of real projects outweighs a long but generic CV.",
+      experience:"Career changers and self-taught profiles do get hired in the private sector, especially in growing fields like IT, BPO/call centers, and digital marketing, where many employers test skills directly rather than requiring a matching degree. A few months of freelance or volunteer work in the target field, documented and shown, often substitutes for years of formal study.",
+      steps:["Target 2-3 sectors with active hiring and decent pay scales (check recent postings on LinkedIn, Tanitjobs, Manarjob).","Build a small portfolio or concrete work samples, not just a CV.","Get clear on your contract type (CDD/CDI) and what the Article 30 subcontracting protections (loi 2025-9) do and don't cover for you.","Negotiate before signing: salaire brut vs net, the CNSS-declared base, and the 13th month."],
+      resources:["LinkedIn","Tanitjobs.com","Manarjob","Keejob","ANETI – emploi.nat.tn"]
+    },
+    ar: {
+      name:"القطاع الخاص (أجير)",
+      tagline:"النمو المهني المؤطر",
+      overview:"يتقدّم العمل الأجير في القطاع الخاص أسرع من القطاع العام: قرارات التشغيل تأخذ أسابيع لا سنوات، والأجور تتجاوب أكثر مع المهارة والقطاع — الشركات متعددة الجنسيات وتكنولوجيا المعلومات والبنوك وقطاعات التصدير غالبا تدفع أعلى من المعدل. يوفر لك الصندوق الوطني للضمان الاجتماعي والتأمين على المرض تغطية حقيقية، وإن كانت أقل ديمومة من الصندوق القومي للتقاعد. لكن المقابل حقيقي: استقرار الشغل يعتمد على الشركة ونوع العقد (محدد المدة أو غير محدد المدة)، والتسريح وارد فعلا، ومسارك يعتمد على إثبات قيمتك باستمرار أكثر من الأقدمية.",
+      academic:"أغلب الخطط الجيدة الأجر في القطاع الخاص لا تزال تتطلب شهادة (إجازة، مهندس، ماجستير)، لكن الشركات تعتمد أكثر على سمعة المعهد وتخصصك مقارنة بالقطاع العام. شهادة من معهد هندسة أو تجارة معروف، أو شهادة معترف بها (محاسبة، تكنولوجيا المعلومات...) تفتح أبوابا لا تفتحها شهادة عامة.",
+      skills:"هذا هو المسار الذي تتحول فيه الهوايات بشكل مباشر إلى أجر. التصميم الجرافيكي، إنتاج المحتوى، لغة ثانية أو ثالثة، المحاسبة، أو مشاريع برمجة شخصية، كل منها سطر ملموس في السيرة الذاتية يمكن للمشغّل التحقق منه في المقابلة. محفظة صغيرة من المشاريع الحقيقية تفوق سيرة ذاتية طويلة لكن عامة.",
+      experience:"يحصل أصحاب المسارات المهنية المتغيرة والمتعلمون ذاتيا على فرص حقيقية في القطاع الخاص، خاصة في قطاعات متنامية كتكنولوجيا المعلومات ومراكز النداء والتسويق الرقمي، حيث يختبر كثير من المشغّلين المهارات مباشرة دون اشتراط شهادة مطابقة. بضعة أشهر من العمل المستقل أو التطوعي في المجال المستهدف، موثّقة ومعروضة، تعوّض غالبا سنوات من الدراسة الرسمية.",
+      steps:["استهدف قطاعين أو ثلاثة بها تشغيل فعلي وسلالم أجور معقولة (تابع العروض الحديثة على LinkedIn و Tanitjobs و Manarjob).","اِبن محفظة صغيرة أو نماذج عمل ملموسة، لا مجرد سيرة ذاتية.","تحقق من نوع عقدك (محدد أو غير محدد المدة) وما تغطيه أو لا تغطيه حمايات الفصل 30 من قانون المناولة (القانون 2025-9).","تفاوض قبل التوقيع: الأجر الخام مقابل الصافي، القاعدة المصرّح بها للصندوق الوطني للضمان الاجتماعي، والمنحة السنوية."],
+      resources:["LinkedIn","Tanitjobs.com","Manarjob","Keejob","الوكالة الوطنية للتشغيل – emploi.nat.tn"]
+    }
+  },
+  entre: {
+    fr: {
+      name:"Entrepreneuriat",
+      tagline:"La Construction Autonome",
+      overview:"Construire sa propre structure — en tant qu'auto-entrepreneur ou petite société — donne un potentiel de gain sans plafond et un contrôle total de son temps, au prix du filet de sécurité : pas de salaire garanti, et le risque administratif et financier est porté par toi seul. Le statut d'auto-entrepreneur en Tunisie allège le premier pas par rapport à avant : la première année est largement exonérée (impôt et CNSS pris en charge par le Fonds National de l'Emploi), les contributions restent simplifiées ensuite, et le statut peut courir jusqu'à 7 ans — mais avec un plafond de chiffre d'affaires annuel (environ 75 000 DT). Au-delà de ce plafond, trouver des clients et tenir face aux délais de paiement sont les vrais tests, pas la paperasse.",
+      academic:"L'entrepreneuriat est la voie la moins conditionnée par les diplômes — presque n'importe quel parcours permet de s'inscrire en auto-entrepreneur pour les activités éligibles (commerce, services, numérique, artisanat). Les exceptions sont les professions réglementées — avocat, expert-comptable, médecin, notaire — qui exigent l'agrément de leur ordre professionnel quelle que soit la structure choisie.",
+      skills:"C'est la voie où les hobbies se transforment le plus directement en revenu parmi les quatre : une compétence pour laquelle des gens te paient déjà de façon informelle — cours particuliers, design, événementiel, coaching, contenu — est souvent ta première activité viable en auto-entrepreneur. Le vrai travail n'est pas d'acquérir la compétence, mais de la transformer en offre : une proposition claire, un prix, et un moyen d'être payé.",
+      experience:"Quel que soit le secteur où tu as travaillé, même comme salariée, c'est une étude de marché que tu as déjà payée. Les manques et les besoins non satisfaits que tu as remarqués au travail sont souvent un meilleur point de départ pour une idée d'entreprise qu'une idée inventée de zéro, et les clients qui te recrutent ensuite ont souvent déjà vu ton travail.",
+      steps:["Choisis une seule activité rémunérée que tu peux démarrer maintenant sans acheter de matériel.","Enregistre ton activité sur le portail registre-entreprises.tn / auto-entrepreneur.","Note chaque échéance de déclaration trimestrielle pour que le statut simplifié ne bascule pas par accident vers le régime réel.","Garde l'enregistrement de marque INNORPI et les démarches INPDP pour le moment où tu as des clients récurrents, pas avant."],
+      resources:["registre-entreprises.tn","INNORPI","ANETI – Espace Entreprendre","Fonds National de l'Emploi"]
+    },
+    en: {
+      name:"Entrepreneurship",
+      tagline:"Independent Building",
+      overview:"Building your own structure — as an auto-entrepreneur or a small company — gives you uncapped upside and full control of your time, at the cost of the safety net: no guaranteed salary, and you carry the administrative and financial risk yourself. Tunisia's auto-entrepreneur status makes the first step lighter than it used to be: the first year is largely exempt (tax and CNSS covered by the Fonds National de l'Emploi), contributions stay simplified afterward, and the status can run up to 7 years — but it comes with an annual revenue ceiling (around 75,000 TND). Past that ceiling, finding clients and surviving slow payment cycles are the real tests, not the paperwork.",
+      academic:"Entrepreneurship is the path least gated by diplomas — almost any background can register as an auto-entrepreneur for eligible activities (commerce, services, digital, crafts). The exceptions are regulated professions — law, accounting, medicine, notarial work — which require their professional order's credential no matter what business structure you use.",
+      skills:"This is the most direct hobbies-to-income path of the four: a skill people already pay you for informally — tutoring, design, events, coaching, content — is usually your first viable auto-entrepreneur activity. The real work isn't acquiring the skill, it's productizing it: a clear offer, a price, and a way for someone to pay you.",
+      experience:"Whatever sector you've worked in, even as an employee, is market research you've already paid for. The gaps and unmet needs you noticed on the job are usually a better starting point for a business idea than something invented from scratch, and the clients who hire you later have often already seen your work.",
+      steps:["Pick one paying activity you can start now without buying equipment.","Register your activity on the registre-entreprises.tn / auto-entrepreneur portal.","Track every quarterly declaration deadline so the simplified status doesn't lapse into the régime réel by accident.","Save INNORPI brand registration and INPDP data steps for once you have repeat clients, not before."],
+      resources:["registre-entreprises.tn","INNORPI","ANETI – Espace Entreprendre","Fonds National de l'Emploi"]
+    },
+    ar: {
+      name:"ريادة الأعمال (الباعث الذاتي)",
+      tagline:"البناء المستقل",
+      overview:"بناء هيكلك الخاص — كباعث ذاتي أو شركة صغيرة — يعطيك إمكانية ربح بلا سقف وتحكما كاملا في وقتك، على حساب شبكة الأمان: لا أجر مضمون، وتحمل أنت بمفردك المخاطر الإدارية والمالية. صفة الباعث الذاتي في تونس تجعل الخطوة الأولى أخف من قبل: السنة الأولى معفاة إلى حد كبير (الضريبة والصندوق الوطني للضمان الاجتماعي يتحملهما الصندوق الوطني للتشغيل)، وتبقى المساهمات مبسطة بعد ذلك، ويمكن أن تستمر الصفة إلى 7 سنوات — لكنها مرتبطة بسقف سنوي لرقم المعاملات (حوالي 75 ألف دينار). بعد هذا السقف، يصبح إيجاد الحرفاء وتحمّل آجال الدفع المتأخرة هما التحدي الحقيقي، لا الإجراءات الإدارية.",
+      academic:"ريادة الأعمال هي المسار الأقل اشتراطا للشهادات — يمكن لأي مسار تقريبا التسجيل كباعث ذاتي للأنشطة المؤهلة (تجارة، خدمات، رقمي، حرف). الاستثناءات هي المهن المنظمة — المحاماة، المحاسبة، الطب، التوثيق — التي تتطلب شهادة من هيئتها المهنية بغض النظر عن الهيكل المعتمد.",
+      skills:"هذا هو المسار الأكثر مباشرة لتحويل الهوايات إلى دخل من بين الأربعة: مهارة يدفع لك الناس مقابلها بشكل غير رسمي بالفعل — دروس خصوصية، تصميم، فعاليات، تدريب، محتوى — تكون غالبا أول نشاط قابل للتطبيق كباعث ذاتي. العمل الحقيقي ليس اكتساب المهارة، بل تحويلها إلى عرض: خدمة واضحة، سعر محدد، وطريقة لقبض المقابل.",
+      experience:"أي قطاع عملت فيه، حتى كأجير، هو دراسة سوق دفعت ثمنها بالفعل. الثغرات والحاجيات غير الملباة التي لاحظتها في العمل غالبا نقطة انطلاق أفضل لفكرة مشروع من فكرة مبتكرة من الصفر، والحرفاء الذين يوظفونك بعد ذلك غالبا قد رأوا عملك من قبل.",
+      steps:["اختر نشاطا واحدا مربحا يمكنك بدؤه الآن دون شراء معدات.","سجّل نشاطك عبر منصة registre-entreprises.tn / الباعث الذاتي.","تابع كل أجل تصريح فصلي حتى لا تنتقل الصفة المبسطة بالخطأ إلى النظام الحقيقي.","أخّر خطوات تسجيل العلامة لدى INNORPI وإجراءات INPDP إلى حين توفر حرفاء متكررين، لا قبل ذلك."],
+      resources:["registre-entreprises.tn","INNORPI","الوكالة الوطنية للتشغيل – فضاء المبادرة","الصندوق الوطني للتشغيل"]
+    }
+  },
+  indep: {
+    fr: {
+      name:"Indépendant / Mission par mission",
+      tagline:"La Liberté Mobile",
+      overview:"Travailler mission par mission — freelance, conseil, prestations de service à durée déterminée — se situe entre le salariat et l'entrepreneuriat : tu choisis tes clients et tes horaires comme une entrepreneuse, mais chaque mission est en général plus étroite et plus courte que la construction d'une entreprise. Cette voie convient aux profils avec une compétence spécialisée et exportable (traduction, développement, design, formation, coaching) qui veulent de la flexibilité géographique et horaire, y compris pour travailler avec des clients hors de Tunisie. Le revenu est naturellement irrégulier, et c'est à toi seul de relancer les paiements en retard et de gérer ta propre couverture CNSS.",
+      academic:"Les clients qui recrutent un freelance ou un prestataire pèsent en général le portfolio et les références bien plus que les diplômes ; un diplôme aide surtout comme raccourci de crédibilité pour des clients qui ne te connaissent pas encore. Il compte le plus pour les missions réglementées ou très techniques (juridique, financier, ingénierie), où une qualification reconnue est le ticket d'entrée pour même pouvoir soumissionner.",
+      skills:"Parmi les quatre voies, c'est celle qui transforme le plus vite une compétence précise et nommable en revenu. Un hobby d'enseignement devient des cours particuliers ou de l'animation d'atelier rémunérés ; une expérience événementielle ou radio devient de l'animation contractuelle, de la production de podcast ou de la création de contenu ; un hobby de design devient des contrats freelance. La compétence doit être assez précise pour y mettre un prix, pas un discours vague du type 'je suis créative'.",
+      experience:"Chaque projet déjà livré — même non payé, même informel — est une étude de cas à montrer à un futur client. Les profils expérimentés (comptabilité, administration, coordination) réussissent souvent mieux en freelance que les jeunes diplômés, car ils savent déjà cadrer, livrer et facturer une mission, ce qui est l'essentiel de ce qu'un client paie réellement.",
+      steps:["Nomme un service de façon assez précise pour pouvoir en chiffrer le prix.","Construis 2 à 3 études de cas à partir de travaux passés, même informels ou non payés, avant de démarcher de nouveaux clients.","Décide tôt de ton statut de facturation : auto-entrepreneur pour les clients tunisiens, et vérifie les règles de change de la BCT si tu factures des clients étrangers en devise.","Fixe toi-même ton calendrier de cotisation CNSS ; ça ne se fera pas automatiquement comme pour un salarié."],
+      resources:["Portail auto-entrepreneur (facturation locale)","Malt / Upwork / Fiverr / ComeUp","BCT – règles de facturation en devises"]
+    },
+    en: {
+      name:"Independent / Mission-Based",
+      tagline:"Flexible Independence",
+      overview:"Working mission by mission — freelance, consulting, fixed-term prestations de service — sits between salaried work and entrepreneurship: you choose your clients and hours like an entrepreneur, but each engagement is usually narrower and shorter than building a company. It suits people with a specialized, exportable skill (translation, development, design, training, coaching) who want geographic and schedule flexibility, including working for clients outside Tunisia. Income is naturally irregular, and you alone are responsible for chasing late payments and your own CNSS coverage.",
+      academic:"Clients hiring a freelancer or contractor usually weigh portfolio and references far more than diplomas; a degree mostly helps as a credibility shortcut for first-time clients who don't know you yet. It matters most for regulated or highly technical missions (legal, financial, engineering), where a recognized qualification is the entry ticket to even bid for the work.",
+      skills:"Of the four paths, this one converts a specific, namable skill into income fastest. A teaching hobby becomes paid tutoring or workshop facilitation; an event or radio background becomes contracted MC work, podcast production, or content creation; a design hobby becomes freelance design contracts. The skill needs to be specific enough to put a price on, not a general 'I'm creative' pitch.",
+      experience:"Every project you've ever delivered — even unpaid, even informal — is a case study a future client can be shown. Experienced profiles (accounting, admin, coordination) often do better as freelancers than fresh graduates, because they already know how to scope, deliver, and invoice a piece of work, which is most of what a client is actually paying for.",
+      steps:["Name one service precisely enough that you can quote a price for it.","Build 2-3 case studies from past work, even informal or unpaid, before pitching new clients.","Decide your invoicing status early: auto-entrepreneur for Tunisian clients, and check BCT exchange rules if you're invoicing foreign clients in foreign currency.","Set your own CNSS contribution schedule; it won't happen automatically the way it does for a salaried employee."],
+      resources:["Auto-entrepreneur portal (local invoicing)","Malt / Upwork / Fiverr / ComeUp","BCT – foreign-currency invoicing rules"]
+    },
+    ar: {
+      name:"العمل المستقل / حسب المهمة",
+      tagline:"الاستقلالية المتنقلة",
+      overview:"العمل حسب المهمة — عمل مستقل، استشارة، خدمات بعقود محددة المدة — يقع بين العمل الأجير وريادة الأعمال: تختار حرفاءك وأوقاتك مثل صاحب مشروع، لكن كل مهمة تكون عادة أضيق وأقصر من بناء شركة. يناسب هذا المسار من لديهم مهارة متخصصة وقابلة للتصدير (ترجمة، تطوير برمجيات، تصميم، تكوين، تدريب) ويريدون مرونة في المكان والوقت، بما في ذلك العمل مع حرفاء خارج تونس. الدخل غير منتظم بطبيعته، وأنت وحدك المسؤول عن تتبع المدفوعات المتأخرة وتغطيتك الخاصة بالصندوق الوطني للضمان الاجتماعي.",
+      academic:"الحرفاء الذين يوظفون عاملا مستقلا أو متعاقدا يعتمدون عادة على المحفظة والمراجع أكثر بكثير من الشهادات؛ الشهادة تساعد أساسا كطريقة سريعة لكسب الثقة مع حرفاء جدد لا يعرفونك بعد. تكون أهم في المهام المنظمة أو التقنية جدا (قانونية، مالية، هندسية)، حيث تعتبر الشهادة المعترف بها تذكرة الدخول للمشاركة في العرض أصلا.",
+      skills:"من بين المسارات الأربعة، هذا هو الأسرع في تحويل مهارة محددة وقابلة للتسمية إلى دخل. هواية التعليم تتحول إلى دروس خصوصية أو تيسير ورشات مدفوعة؛ خبرة في الفعاليات أو الراديو تتحول إلى تقديم بعقد، أو إنتاج بودكاست، أو إنشاء محتوى؛ هواية التصميم تتحول إلى عقود تصميم مستقلة. يجب أن تكون المهارة محددة بما يكفي لتسعيرها، لا مجرد خطاب عام مثل 'أنا مبدع'.",
+      experience:"كل مشروع قمت بتنفيذه من قبل — حتى لو لم يكن مدفوعا أو غير رسمي — هو دراسة حالة يمكن عرضها على حريف مستقبلي. الملفات ذات الخبرة (محاسبة، إدارة، تنسيق) تنجح غالبا أكثر كمستقلين من حديثي التخرج، لأنهم يعرفون بالفعل كيفية تحديد نطاق المهمة وتسليمها وفوترتها، وهذا هو جوهر ما يدفع الحريف ثمنه فعليا.",
+      steps:["حدّد خدمة واحدة بدقة كافية لتستطيع تسعيرها.","اِبن دراستي أو ثلاث دراسات حالة من أعمال سابقة، حتى لو كانت غير رسمية أو غير مدفوعة، قبل التوجه إلى حرفاء جدد.","حدّد مبكرا صفتك في الفوترة: باعث ذاتي للحرفاء التونسيين، وتحقق من قواعد البنك المركزي التونسي للصرف إذا كنت تفوتر حرفاء أجانب بعملة أجنبية.","ضع بنفسك جدولا لمساهماتك في الصندوق الوطني للضمان الاجتماعي؛ لن يحدث ذلك تلقائيا كما يحدث للأجير."],
+      resources:["منصة الباعث الذاتي (الفوترة المحلية)","Malt / Upwork / Fiverr / ComeUp","البنك المركزي التونسي – قواعد الفوترة بالعملة الأجنبية"]
+    }
+  }
+}; // PLACEHOLDER_PATHS
+
+// ==== SECTION LABELS ====
+const SECTIONS = {
+  fr:['Ton parcours','Ta personnalité au travail','Tes ambitions','Tes ressources','Ton rapport au risque'],
+  en:['Your background','Your work personality','Your ambitions','Your resources','Your risk profile'],
+  ar:['مسارك','شخصيتك المهنية','طموحاتك','مواردك','علاقتك بالمخاطرة']
+};
+
+// ==== PLANS (timeline + legal + watch-outs per path) ====
+const PLANS = {
+  etat:{
+    fr:{
+      timeline:[
+        { period:"Mois 1–2", actions:["Identifier le corps/grade cible sur JORT et tunisieconcours.tn", "Vérifier si le diplôme requis correspond au tien et si une limite d'âge s'applique", "Rassembler les pièces récurrentes : casier judiciaire (Bulletin n°3), diplômes légalisés, photos", "Créer un tableau de veille hebdomadaire des concours ouverts"] },
+        { period:"Mois 3–6", actions:["Lancer la préparation aux épreuves avec des sujets passés et des écrits chronométrés", "Chercher un poste d'intervenant extérieur ou vacataire dans une institution publique pour générer un revenu pendant l'attente", "Ne pas attendre sans revenu — l'activité complémentaire est légalement cumulable"] },
+        { period:"Mois 6–12", actions:["Déposer les dossiers dès l'ouverture des concours (délai souvent 30 jours après parution au JORT)", "Passer les épreuves écrites, puis préparer l'entretien oral avec des mises en situation", "Accumuler les passages : la plupart des titulaires ont tenté plusieurs concours avant de réussir"] },
+        { period:"An 1 et au-delà", actions:["Période de stage (généralement 1 an) précède le décret de titularisation", "Commencer à constituer ton dossier de compétences internes pour évoluer vers des fonctions de coordination ou de responsabilité", "Rester informé des réformes du statut général des fonctionnaires (Loi 83-112 et amendements)"] }
+      ],
+      legal:["Aucune inscription commerciale requise — le concours relève du droit public","Extrait de naissance et casier judiciaire (Bulletin n°3) à la municipalité et au tribunal de 1ère instance","Pour le statut vacataire : convention de prestation de service signée par le département concerné","Après recrutement : décret de nomination puis période de stage officielle avant titularisation","Cotisation CNRPS (Caisse Nationale de Retraite et de Prévoyance Sociale) prélevée automatiquement sur le traitement"],
+      watchOut:["Ne jamais supposer qu'un concours va s'ouvrir sans vérifier le JORT — certains postes restent vacants des années","Vérifier l'âge limite (souvent 40 ans, parfois 35 ou 45 selon le corps) avant de préparer","Éviter d'attendre sans revenu alternatif : combiner avec une activité indépendante complémentaire est légal","Un échec au concours n'est pas une disqualification — candidater plusieurs fois est la norme"],
+      planB:"Si aucun concours ne s'ouvre dans ton domaine dans les 12 mois à venir, le statut d'intervenant extérieur dans une institution publique est un plan B immédiat. Ton profil orienté stabilité se recycle aussi très bien en CDD privé dans l'administration déléguée ou les ONG."
+    },
+    en:{
+      timeline:[
+        { period:"Months 1–2", actions:["Identify your target corps/grade on JORT and tunisieconcours.tn","Check that your diploma matches the required level and verify any age limits","Gather recurring documents: casier judiciaire (Bulletin n°3), legalized diplomas, passport photos","Build a weekly tracker for open concours across the relevant ministries"] },
+        { period:"Months 3–6", actions:["Start concours prep using past épreuves and timed writing practice","Find an intervenant extérieur or vacataire post in a public institution to generate income while you wait","Don't wait without income — a complementary activity is legally allowed"] },
+        { period:"Months 6–12", actions:["Submit applications as soon as concours open (deadlines are often 30 days from JORT publication)","Pass the written épreuves, then prepare the oral with simulated interview practice","Keep sitting concours: most permanent public servants succeeded after multiple attempts"] },
+        { period:"Year 1 and beyond", actions:["A probationary period (usually 1 year) precedes the official titularisation decree","Start building an internal skills file to move toward coordination or management roles","Stay current on reforms to the Statut Général des Fonctionnaires (Loi 83-112 and amendments)"] }
+      ],
+      legal:["No commercial registration needed — concours fall under public law","Casier judiciaire (Bulletin n°3) from the municipality and first-instance tribunal","For vacataire status: a prestation de service agreement signed by the relevant department","After recruitment: official appointment decree, then a probationary period before titularisation","CNRPS contributions automatically deducted from your traitement (public sector payroll)"],
+      watchOut:["Never assume a concours is coming without checking the JORT — some posts stay vacant for years","Always verify the age limit (often 40, sometimes 35 or 45) before investing in preparation","Don't wait without an alternative income — combining with a side activity is legal","Failing a concours once is not disqualifying — multiple attempts are the norm"],
+      planB:"If no concours opens in your field in the next 12 months, the intervenant extérieur status in a public institution is an immediate fallback. Your stability-oriented profile also converts well into a private-sector CDD in delegated administration or NGOs."
+    },
+    ar:{
+      timeline:[
+        { period:"الشهران 1–2", actions:["تحديد السلك والرتبة المستهدفة في الرائد الرسمي وموقع tunisieconcours.tn","التحقق من مطابقة شهادتك للشروط ومن حد السن إن وُجد","جمع الوثائق المتكررة: بطاقة السوابق العدلية، الشهادات المضمونة، الصور","إنشاء جدول متابعة أسبوعي للمناظرات المفتوحة"] },
+        { period:"الأشهر 3–6", actions:["الانطلاق في التحضير بمواضيع سابقة وتمارين كتابية بوقت محدد","البحث عن خطة متدخل خارجي أو مكلّف بمهمة في مؤسسة عمومية لتأمين دخل أثناء الانتظار","لا تنتظر بدون دخل — النشاط التكميلي مسموح به قانونا"] },
+        { period:"الأشهر 6–12", actions:["إيداع الملفات فور فتح المناظرات (الأجل غالبا 30 يوما من النشر في الرائد)","اجتياز الاختبارات الكتابية ثم التحضير للمقابلة الشفوية بوضعيات محاكاة","تكرار المحاولات: أغلب المرسّمين نجحوا بعد عدة مناظرات"] },
+        { period:"السنة الأولى وما بعدها", actions:["فترة التربص (عادة سنة) تسبق مرسوم الترسيم","الشروع في بناء ملف كفاءات داخلي للتطور نحو مهام التنسيق أو المسؤولية","البقاء على اطلاع بالإصلاحات المتعلقة بالنظام الأساسي العام للوظيفة العمومية"] }
+      ],
+      legal:["لا حاجة لأي سجل تجاري — المناظرة تخضع للقانون العام","بطاقة السوابق العدلية من البلدية والمحكمة الابتدائية","للصفة الاستعانية: اتفاقية خدمات يوقعها الفصيل المعني","بعد الانتداب: مرسوم التعيين ثم فترة تربص رسمية قبل الترسيم","اشتراكات الصندوق القومي للتقاعد تُخصم تلقائيا من الأجر"],
+      watchOut:["لا تفترض أن مناظرة ستفتح قريبا دون التحقق من الرائد الرسمي","تحقق دائما من حد السن قبل التحضير","لا تنتظر بدون دخل بديل — الجمع مع نشاط مستقل مسموح به","الرسوب في المناظرة ليس استبعادا — تعدد المحاولات هو القاعدة"],
+      planB:"إذا لم تفتح أي مناظرة في مجالك خلال الـ12 شهرا القادمة، فصفة المتدخل الخارجي في مؤسسة عمومية هي الخطة البديلة الفورية. ملفك الموجّه نحو الاستقرار يمكن تحويله بسهولة إلى عقد محدد المدة في القطاع الخاص أو المنظمات غير الحكومية."
+    }
+  },
+  prive:{
+    fr:{
+      timeline:[
+        { period:"Mois 1–2", actions:["Mettre à jour le CV et créer 3 à 5 exemples de travail concrets (portfolio léger)","Activer le réseau sur LinkedIn et Tanitjobs, cibler 10 entreprises en recrutement actif","Clarifier ton secteur prioritaire et le niveau de salaire attendu (brut vs net)"] },
+        { period:"Mois 3–4", actions:["Décrocher les premiers entretiens : poser systématiquement les questions sur le type de contrat (CDD/CDI), la base CNSS déclarée, et si le 13ème mois est pratiqué","Ne pas accepter un poste sans vérifier que l'AMO est bien couverte et que le contrat est signé en deux exemplaires"] },
+        { period:"Mois 5–8", actions:["Signer en négociant : salaire brut/net, avantages, période d'essai, clauses de rupture","S'assurer dans les 3 premiers mois que la carte d'assuré AMO est reçue et que la déclaration CNSS est faite sur le salaire réel"] },
+        { period:"An 1 et au-delà", actions:["Constituer un dossier de compétences et de réalisations pour négocier une augmentation ou changer d'employeur avec une meilleure offre dans 2 à 3 ans","Surveiller les opportunités internes de management si la croissance dans l'entreprise stagne"] }
+      ],
+      legal:["Contrat CDD ou CDI en deux exemplaires mentionnant durée, salaire brut, poste et lieu de travail","Période d'essai légale : 6 jours pour les ouvriers, 3 mois pour les cadres (renouvelable une fois)","Cotisations CNSS 2026 : part salariale ~9.18%, part patronale ~16.57% (vérifier circulaire annuelle)","AMO (Assurance Maladie Obligatoire) déclarée par l'employeur — carte à recevoir dans les 90 jours","Préavis pour CDI : dépend de l'ancienneté et de l'accord-cadre sectoriel","Loi 2025-9 (Article 30) : vérifier que le contrat ne te classe pas en prestataire sans protection salariale"],
+      watchOut:["Refuser tout contrat verbal ou paiement en espèces sans déclaration CNSS — aucune couverture, aucun droit","Méfiance face à un CDD renouvelé plus de deux fois sur le même poste — peut être requalifié en CDI","Vérifier si la convention collective de ton secteur existe et quels droits supplémentaires elle offre","Ne pas comparer les salaires bruts sans tenir compte des charges sociales réelles et de l'IMF"],
+      planB:"Si tu ne trouves pas un CDI convenable dans les 6 mois, un CDD intermédiaire est préférable au vide. L'auto-entrepreneur en complément est légalement cumulable si tu veux commencer à construire une source de revenu parallèle sans quitter le marché de l'emploi."
+    },
+    en:{
+      timeline:[
+        { period:"Months 1–2", actions:["Update your CV and create 3-5 concrete work examples (a lightweight portfolio)","Activate your network on LinkedIn and Tanitjobs, target 10 companies with active hiring","Clarify your priority sector and expected salary range (brut vs net)"] },
+        { period:"Months 3–4", actions:["Land first interviews: always ask about contract type (CDD/CDI), the declared CNSS base, and whether a 13th month is standard","Don't accept a position without verifying that AMO coverage is included and that the contract is signed in two copies"] },
+        { period:"Months 5–8", actions:["Negotiate before signing: brut/net salary, benefits, probationary terms, termination clauses","Confirm within the first 3 months that your AMO card has arrived and CNSS is declared on your actual salary"] },
+        { period:"Year 1 and beyond", actions:["Build a track record file to negotiate a raise or move to a better offer at a different employer in 2-3 years","Watch for internal management opportunities if growth stalls at your current company"] }
+      ],
+      legal:["CDD or CDI contract in two copies, specifying duration, brut salary, role, and workplace","Legal trial period: 6 days for workers, 3 months for cadres (renewable once)","CNSS 2026 rates: ~9.18% employee share, ~16.57% employer share (verify annual circular)","AMO (Mandatory Health Insurance) declared by employer — card to arrive within 90 days","CDI notice period: depends on seniority and sectoral collective agreement","Loi 2025-9 (Article 30): confirm your contract doesn't classify you as a prestataire without employee protections"],
+      watchOut:["Refuse any verbal contract or cash payment without CNSS declaration — no coverage, no rights","Be cautious of a CDD renewed more than twice for the same role — may be reclassifiable as CDI","Check whether a collective agreement (convention collective) exists in your sector and what extra rights it grants","Don't compare brut salaries without accounting for real social charges and income tax"],
+      planB:"If a decent CDI doesn't materialize within 6 months, an intermediate CDD is better than no income. An auto-entrepreneur activity on the side is legally stackable if you want to start building a parallel income stream without leaving the job market."
+    },
+    ar:{
+      timeline:[
+        { period:"الشهران 1–2", actions:["تحديث السيرة الذاتية وإنشاء 3 إلى 5 أمثلة عمل ملموسة (محفظة خفيفة)","تفعيل شبكة العلاقات على LinkedIn وTanitjobs، استهداف 10 شركات في التشغيل الفعلي","تحديد القطاع الأولوي ونطاق الأجر المتوقع (الخام مقابل الصافي)"] },
+        { period:"الشهران 3–4", actions:["الحصول على المقابلات الأولى: طرح أسئلة منهجية حول نوع العقد والقاعدة المصرّح بها للضمان الاجتماعي والمنحة السنوية","عدم قبول أي منصب دون التحقق من تغطية التأمين على المرض وتوقيع العقد في نسختين"] },
+        { period:"الأشهر 5–8", actions:["التفاوض قبل التوقيع: الأجر الخام والصافي والمزايا وشروط التجربة وبنود الفسخ","التحقق خلال الأشهر الثلاثة الأولى من استلام بطاقة التأمين الصحي والتصريح بالأجر الفعلي للضمان الاجتماعي"] },
+        { period:"السنة الأولى وما بعدها", actions:["بناء ملف إنجازات للتفاوض على زيادة أو الانتقال لعرض أفضل في مؤسسة أخرى خلال سنتين إلى ثلاث","مراقبة فرص التسيير الداخلية إذا تعثّر التطور في المؤسسة الحالية"] }
+      ],
+      legal:["عقد محدد أو غير محدد المدة في نسختين يذكر المدة والأجر الخام والوظيفة ومكان العمل","فترة التجربة القانونية: 6 أيام للعمال، 3 أشهر للإطارات (قابلة للتجديد مرة واحدة)","نسب الضمان الاجتماعي 2026: حصة الأجير ~9.18%، حصة المشغّل ~16.57%","التأمين على المرض تصرّح به المؤسسة — البطاقة في 90 يوما","أجل الإعلام عند فسخ العقد غير المحدد: حسب الأقدمية والاتفاقية القطاعية","القانون 2025-9 الفصل 30: التحقق من أن العقد لا يصنّفك كمتعاقد بدون حماية أجير"],
+      watchOut:["رفض أي عقد شفهي أو دفع نقدي بدون تصريح للضمان الاجتماعي — لا تغطية ولا حقوق","الحذر من تجديد عقد محدد المدة أكثر من مرتين لنفس المنصب — يمكن إعادة تصنيفه كعقد غير محدد","التحقق من وجود اتفاقية قطاعية في مجالك والحقوق الإضافية التي تمنحها","عدم مقارنة الأجور الخام دون أخذ الاقتطاعات الاجتماعية والضريبية الفعلية بعين الاعتبار"],
+      planB:"إذا لم يتوفر عقد غير محدد جيد خلال 6 أشهر، فعقد محدد المدة أفضل من الفراغ. نشاط الباعث الذاتي بالتوازي مسموح به قانونا إذا أردت بناء مصدر دخل موازٍ دون مغادرة سوق الشغل."
+    }
+  },
+  entre:{
+    fr:{
+      timeline:[
+        { period:"Mois 1–2", actions:["Choisir UNE seule activité génératrice de revenus démarrable sans investissement","Tester avec 1 à 3 clients réels — même pour un prix modeste, même informellement","S'enregistrer en auto-entrepreneur sur registre-entreprises.tn dès la première transaction formelle"] },
+        { period:"Mois 3–6", actions:["Livrer à ces premiers clients, collecter des témoignages, documenter chaque mission comme étude de cas","Ne pas encore investir dans logo, site web ou bureau — d'abord la preuve que ça marche","Suivre le CA mensuel cumulatif pour anticiper le seuil annuel de 75 000 DT"] },
+        { period:"Mois 6–12", actions:["Si le revenu est régulier : structurer l'offre (tarif fixe ou package), trouver un deuxième type de client","Émettre des factures légales pour chaque prestation — tenir un registre simple","Déposer la déclaration trimestrielle même si CA = 0 (obligatoire sous peine de perte du statut simplifié)"] },
+        { period:"An 1 et au-delà", actions:["Évaluer avec un expert-comptable si une SUARL ou SARL est préférable à l'auto-entrepreneur","L'enregistrement INNORPI de la marque devient pertinent dès que tu as des clients récurrents","Explorer les aides de financement : microcrédits BTS, fonds ANETI Espace Entreprendre"] }
+      ],
+      legal:["Inscription auto-entrepreneur : registre-entreprises.tn, CIN valide + activité éligible","Professions exclues : avocat, médecin, pharmacien, notaire, expert-comptable, huissier","Année 1 : impôt et CNSS couverts par le Fonds National de l'Emploi","Déclaration trimestrielle obligatoire auprès du Receveur des Finances (même si CA = 0)","Seuil annuel : 75 000 DT — dépasser entraîne la bascule vers le régime réel (comptabilité complète)","Au-delà de 7 ans : création d'une société obligatoire (SUARL : capital min. 1 000 DT)","Protection des données personnelles : déclaration INPDP si tu collectes des données clients"],
+      watchOut:["La déclaration trimestrielle oubliée = perte du statut simplifié automatique","Ne pas mélanger comptes personnels et professionnels dès le début","Éviter de promettre des délais non tenus — la réputation est ton seul actif initial","Ne pas attendre d'avoir le nom parfait, le logo parfait ou le site parfait pour commencer","Le statut auto-entrepreneur ne protège pas le patrimoine personnel en cas de litige client important — la SUARL le fait"],
+      planB:"Si après 9 mois il n'y a pas encore de revenu récurrent suffisant, le statut est légalement cumulable avec un CDD dans le privé ou un poste vacataire dans le public. Ne pas rompre le statut — le combiner est toujours possible et légal."
+    },
+    en:{
+      timeline:[
+        { period:"Months 1–2", actions:["Pick ONE income-generating activity you can start without buying anything","Test with 1 to 3 real clients — even at a low price, even informally","Register as an auto-entrepreneur on registre-entreprises.tn as soon as you have your first formal transaction"] },
+        { period:"Months 3–6", actions:["Deliver to those first clients, collect testimonials, document each mission as a case study","Don't yet invest in a logo, website, or office — first prove it works","Track monthly cumulative revenue to anticipate the 75,000 DT annual ceiling"] },
+        { period:"Months 6–12", actions:["If revenue is coming in regularly: structure the offer (fixed fee or package), find a second client type","Issue proper invoices for every service — keep a simple register","File the quarterly declaration even if revenue = 0 (mandatory to keep simplified status)"] },
+        { period:"Year 1 and beyond", actions:["Evaluate with an accountant whether a SUARL or SARL is more appropriate than auto-entrepreneur","INNORPI brand registration becomes relevant once you have repeat clients","Explore financing: BTS microcredit, ANETI Espace Entreprendre grants"] }
+      ],
+      legal:["Auto-entrepreneur registration: registre-entreprises.tn, valid CIN + eligible activity","Excluded professions: lawyer, doctor, pharmacist, notaire, certified accountant, bailiff","Year 1: tax and CNSS covered by the Fonds National de l'Emploi","Quarterly declaration mandatory at the Receveur des Finances (even if revenue = 0)","Annual ceiling: 75,000 DT — exceeding triggers switch to régime réel (full accounting)","After 7 years: mandatory company formation (SUARL: min. 1,000 DT capital)","Personal data: INPDP declaration required if you collect client data"],
+      watchOut:["Missing the quarterly declaration = automatic loss of simplified status","Don't mix personal and business accounts from day one","Don't overpromise delivery timelines — reputation is your only initial asset","Don't wait for the perfect name, logo, or website before starting","Auto-entrepreneur status doesn't protect personal assets in a serious client dispute — a SUARL does"],
+      planB:"If 9 months in there's still no consistent recurring revenue, the status is legally stackable with a private-sector CDD or a public vacataire post. Keep the status — combining is always legal."
+    },
+    ar:{
+      timeline:[
+        { period:"الشهران 1–2", actions:["اختيار نشاط واحد فقط يمكن البدء به دون استثمار","الاختبار مع 1 إلى 3 حرفاء حقيقيين، حتى بسعر متواضع وبشكل غير رسمي","التسجيل كباعث ذاتي على registre-entreprises.tn عند أول معاملة رسمية"] },
+        { period:"الأشهر 3–6", actions:["التسليم للحرفاء الأوائل، جمع الشهادات، توثيق كل مهمة كدراسة حالة","عدم الاستثمار بعد في شعار أو موقع أو مكتب — أولا إثبات أن الأمر يعمل","متابعة رقم المعاملات التراكمي الشهري لتوقع عتبة الـ75,000 دينار السنوية"] },
+        { period:"الأشهر 6–12", actions:["إذا أصبح الدخل منتظما: هيكلة العرض (سعر ثابت أو باقة)، استهداف نوع ثانٍ من الحرفاء","إصدار فاتورة قانونية لكل خدمة — مسك سجل بسيط","إيداع التصريح الفصلي حتى لو كان رقم المعاملات = صفر (إلزامي للحفاظ على النظام المبسّط)"] },
+        { period:"السنة الأولى وما بعدها", actions:["تقييم مع محاسب إذا كانت الشركة ذات مسؤولية محدودة أنسب من الباعث الذاتي","تسجيل العلامة لدى INNORPI يصبح وجيها عند توفر حرفاء متكررين","استكشاف التمويل: قروض صغرى، صندوق ANETI فضاء المبادرة"] }
+      ],
+      legal:["تسجيل الباعث الذاتي: registre-entreprises.tn، بطاقة هوية سارية + نشاط مؤهّل","المهن المستثناة: محامٍ، طبيب، صيدلاني، عدل، خبير محاسب، عدل تنفيذ","السنة الأولى: الضريبة والضمان الاجتماعي يتكفل بهما الصندوق الوطني للتشغيل","التصريح الفصلي إلزامي لدى قابض المالية، حتى لو رقم المعاملات = صفر","السقف السنوي: 75,000 دينار — تجاوزه يستوجب الانتقال للنظام الحقيقي","بعد 7 سنوات: إنشاء شركة إلزامي (ش.أ.م.م: رأس مال أدنى 1,000 دينار)","حماية البيانات الشخصية: التصريح للهيئة الوطنية لحماية المعطيات الشخصية"],
+      watchOut:["التصريح الفصلي المنسي = فقدان تلقائي للنظام المبسّط","عدم خلط الحسابات الشخصية والمهنية منذ البداية","تجنب الوعد بآجال لا يمكن الوفاء بها — السمعة هي أصلك الوحيد في البداية","لا تنتظر الاسم المثالي أو الشعار المثالي أو الموقع المثالي قبل البدء","النظام لا يحمي الذمة المالية الشخصية في نزاع جدي — الشركة ذات م.م تفعل ذلك"],
+      planB:"إذا لم يتوفر بعد 9 أشهر دخل متكرر كافٍ، فالنظام مسموح بتراكمه مع عقد محدد في القطاع الخاص أو خطة استعانية في العمومي. لا تُسقط النظام — الجمع دائما مشروع."
+    }
+  },
+  indep:{
+    fr:{
+      timeline:[
+        { period:"Mois 1", actions:["Nommer une prestation avec un prix — pas de discours vague, un titre précis et une somme","Contacter 10 personnes dans le réseau qui pourraient être clients ou recommander","Décrocher la première mission payante avant de s'occuper d'administratif"] },
+        { period:"Mois 2–3", actions:["Livrer la première mission, demander un témoignage et une référence","Trouver 2 à 3 nouvelles opportunités dans la foulée","S'enregistrer en auto-entrepreneur sur registre-entreprises.tn pour émettre des factures légales"] },
+        { period:"Mois 4–8", actions:["Construire un pipeline simple : une mission en cours, une en négociation, une en prospection","Mettre en place une routine mensuelle : facturation, suivi des paiements, déclaration trimestrielle","Pour les clients à l'international : vérifier les modalités de réception de devises avec sa banque (règles BCT)"] },
+        { period:"An 1 et au-delà", actions:["Identifier les missions les mieux rémunérées et les plus rapides à livrer — concentrer l'énergie là","Monter les tarifs progressivement — la fidélisation client justifie une hausse de 20 à 30%","Envisager de sous-traiter les missions sous ton niveau de compétence pour monter en gamme"] }
+      ],
+      legal:["Auto-entrepreneur (registre-entreprises.tn) pour facturer les clients tunisiens légalement","Pour les clients étrangers en devise : règle BCT — rapatriement obligatoire dans les 30 jours, via un compte professionnel devise ou déclaration BCT","Plateformes internationales (Upwork, Fiverr, Malt) : paiements = recettes en devises — consulter la banque sur les modalités","Tenir un registre simple : date, client, montant, moyen de paiement, statut","Contrat ou devis signé pour chaque mission (email de confirmation suffit en droit tunisien pour les litiges simples)"],
+      watchOut:["Ne jamais travailler sans trace écrite — même un échange email suffit, mais ça doit exister","Ne pas aligner les tarifs vers le bas — les clients qui paient peu créent plus de litiges et de friction","Maintenir une réserve de trésorerie de 2 à 3 mois de charges — les retards de paiement en Tunisie sont fréquents","Ne pas accepter trop de clients simultanément au début — la qualité de livraison est le seul moteur de croissance","Déclarer les revenus même issus de plateformes internationales — la BCT fait des contrôles"],
+      planB:"Si le flux de missions ralentit, le statut indépendant est facilement cumulable avec un CDD dans le privé ou un poste vacataire dans le public. Ta base client reste intacte pendant que tu sécurises un revenu fixe temporaire."
+    },
+    en:{
+      timeline:[
+        { period:"Month 1", actions:["Name one service with a price — not a vague pitch, a precise title and a number","Reach out to 10 people in your network who could be clients or refer you","Land the first paid mission before worrying about admin"] },
+        { period:"Months 2–3", actions:["Deliver the first mission, ask for a testimonial and a referral","Find 2-3 new opportunities right away","Register as an auto-entrepreneur on registre-entreprises.tn to issue proper invoices"] },
+        { period:"Months 4–8", actions:["Build a simple pipeline: one mission underway, one in negotiation, one in prospecting","Set a monthly routine: invoicing, payment tracking, quarterly declaration","For international clients: verify foreign currency receipt arrangements with your bank (BCT rules)"] },
+        { period:"Year 1 and beyond", actions:["Identify your best-paid and fastest-to-deliver missions — concentrate your energy there","Raise rates progressively — client loyalty justifies a 20-30% increase","Consider subcontracting lower-level work to move upmarket yourself"] }
+      ],
+      legal:["Auto-entrepreneur (registre-entreprises.tn) to legally invoice Tunisian clients","For foreign clients in foreign currency: BCT rule — repatriation within 30 days, via a pro currency account or BCT declaration","International platforms (Upwork, Fiverr, Malt): payments are foreign-currency income — ask your bank about receiving options","Keep a simple register: date, client, amount, payment method, status","Signed contract or quote per mission (email confirmation is sufficient in Tunisian law for simple disputes)"],
+      watchOut:["Never work without a written trace — even an email exchange is enough, but something must exist","Don't race to the bottom on pricing — low-paying clients generate more disputes and friction","Keep a 2-3 month cash reserve — payment delays in Tunisia are common","Don't take on too many clients simultaneously at first — delivery quality is the only growth engine","Declare all income including from international platforms — BCT performs checks"],
+      planB:"If missions dry up, independent status is easily stackable with a private-sector CDD or a public vacataire post. Your client base stays intact while you secure temporary fixed income."
+    },
+    ar:{
+      timeline:[
+        { period:"الشهر الأول", actions:["تسمية خدمة واحدة بسعر محدد — لا خطاب مبهم، عنوان دقيق ومبلغ واضح","التواصل مع 10 أشخاص في شبكة علاقاتك قد يكونون حرفاء أو يحيلونك","الحصول على أول مهمة مدفوعة قبل الاهتمام بالجانب الإداري"] },
+        { period:"الشهران 2–3", actions:["تسليم المهمة الأولى، طلب شهادة ومرجعية","إيجاد 2 إلى 3 فرص جديدة في الحال","التسجيل كباعث ذاتي على registre-entreprises.tn لإصدار فواتير قانونية"] },
+        { period:"الأشهر 4–8", actions:["بناء خط أنابيب بسيط: مهمة قيد التنفيذ، أخرى في التفاوض، وثالثة في التنقيب","وضع روتين شهري: فوترة، متابعة المدفوعات، تصريح فصلي","للحرفاء الأجانب: مراجعة البنك بشأن آليات استلام العملات الأجنبية (قواعد البنك المركزي)"] },
+        { period:"السنة الأولى وما بعدها", actions:["تحديد المهام الأفضل أجرا والأسرع تسليما — تركيز الطاقة هناك","رفع التعريفات تدريجيا — وفاء الحريف يبرر زيادة بنسبة 20 إلى 30%","التفكير في التعاقد من الباطن للمهام الأدنى مستوى للتطور نحو القطاع الأعلى"] }
+      ],
+      legal:["الباعث الذاتي (registre-entreprises.tn) لفوترة الحرفاء التونسيين قانونا","للحرفاء الأجانب بعملة أجنبية: قاعدة البنك المركزي — تحويل العملة خلال 30 يوما عبر حساب مهني بالعملة أو تصريح","المنصات الدولية (Upwork، Fiverr، Malt): المدفوعات = إيرادات بعملة أجنبية — مراجعة البنك","مسك سجل بسيط: التاريخ، الحريف، المبلغ، وسيلة الدفع، الحالة","عقد أو عرض أسعار موقّع لكل مهمة (رسالة إلكترونية كافية قانونا في النزاعات البسيطة)"],
+      watchOut:["لا تعمل أبدا بدون أثر مكتوب — حتى تبادل بريد إلكتروني كافٍ، لكن شيئا يجب أن يوجد","لا تنافس على السعر نحو الأسفل — الحرفاء ذوو الأجر المنخفض يولّدون أكثر النزاعات","احتفظ باحتياط خزينة لشهرين إلى ثلاثة أشهر — التأخير في الدفع شائع في تونس","لا تقبل عملاء كثيرين في وقت واحد في البداية — جودة التسليم هي المحرك الوحيد للنمو","صرّح بكل الدخل بما فيه الدخل من المنصات الدولية — البنك المركزي يجري فحوصات"],
+      planB:"إذا تراجع تدفق المهام، فالنشاط المستقل يمكن جمعه بسهولة مع عقد محدد في القطاع الخاص أو خطة استعانية في القطاع العام. تبقى قاعدة حرفائك سليمة بينما تؤمّن دخلا ثابتا مؤقتا."
+    }
+  }
+};
+
+// ==== APP LOGIC ====
+const PATH_ORDER = ['etat','prive','entre','indep'];
+const STORAGE_KEY = 'massar-results-v1';
+
+// ---- Storage helpers ----
+async function saveResults(){
+  const payload = JSON.stringify({ answers: state.answers, lang: state.lang, dossierNumber: state.dossierNumber, savedAt: new Date().toISOString() });
+  try { await window.storage.set(STORAGE_KEY, payload); return true; } catch(e){ return false; }
+}
+async function loadSavedResults(){
+  try {
+    const result = await window.storage.get(STORAGE_KEY);
+    if(!result) return null;
+    return JSON.parse(result.value);
+  } catch(e){ return null; }
+}
+async function clearSavedResults(){
+  try { await window.storage.delete(STORAGE_KEY); } catch(e){}
+}
+
+const state = {
+  lang: 'fr',
+  screen: 'intro',
+  currentQuestion: 0,
+  answers: [],
+  resultTab: 'academic',
+  guideTabs: { etat:'academic', prive:'academic', entre:'academic', indep:'academic' },
+  openAccordion: null,
+  justSaved: false,
+  savedSnapshot: null,
+  dossierNumber: 'MN-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*90000+10000))
+};
+
+function t(key){ return TEXT[state.lang][key]; }
+
+function computeMaxPossible(){
+  const max = { etat:0, prive:0, entre:0, indep:0 };
+  QUESTIONS.forEach(function(q){
+    const qmax = { etat:0, prive:0, entre:0, indep:0 };
+    q.options.forEach(function(opt){
+      Object.keys(qmax).forEach(function(k){ if(opt.score[k] > qmax[k]) qmax[k] = opt.score[k]; });
+    });
+    Object.keys(max).forEach(function(k){ max[k] += qmax[k]; });
+  });
+  return max;
+}
+
+function computeScores(){
+  const score = { etat:0, prive:0, entre:0, indep:0 };
+  state.answers.forEach(function(optIdx, qIdx){
+    if(optIdx === null || optIdx === undefined) return;
+    const opt = QUESTIONS[qIdx].options[optIdx];
+    Object.keys(score).forEach(function(k){ score[k] += opt.score[k]; });
+  });
+  return score;
+}
+
+function computePercentages(){
+  const score = computeScores();
+  const max = computeMaxPossible();
+  const pct = {};
+  Object.keys(score).forEach(function(k){ pct[k] = max[k] ? Math.round(score[k] / max[k] * 100) : 0; });
+  return pct;
+}
+
+function getTab(scope, pathKey){ return scope === 'result' ? state.resultTab : state.guideTabs[pathKey]; }
+
+function renderPathDetail(pathKey, scope){
+  const p = PATHS[pathKey][state.lang];
+  const tab = getTab(scope, pathKey);
+  const tabsHTML =
+    '<div class="tabs">' +
+      '<button class="tab-btn ' + (tab==='academic'?'active':'') + '" data-action="set-tab" data-scope="' + scope + '" data-path="' + pathKey + '" data-tab="academic">' + t('tabAcademic') + '</button>' +
+      '<button class="tab-btn ' + (tab==='skills'?'active':'') + '" data-action="set-tab" data-scope="' + scope + '" data-path="' + pathKey + '" data-tab="skills">' + t('tabSkills') + '</button>' +
+      '<button class="tab-btn ' + (tab==='experience'?'active':'') + '" data-action="set-tab" data-scope="' + scope + '" data-path="' + pathKey + '" data-tab="experience">' + t('tabExperience') + '</button>' +
+    '</div>' +
+    '<p class="tab-panel">' + p[tab] + '</p>';
+
+  const stepsHTML =
+    '<p class="section-label">' + t('stepsHeading') + '</p>' +
+    '<ul class="steps-list">' +
+      p.steps.map(function(s,i){ return '<li><span class="step-num mono">' + String(i+1).padStart(2,'0') + '</span><span>' + s + '</span></li>'; }).join('') +
+    '</ul>';
+
+  const resourcesHTML =
+    '<p class="section-label">' + t('resourcesHeading') + '</p>' +
+    '<div class="resources-list">' +
+      p.resources.map(function(r){ return '<span class="resource-tag">' + r + '</span>'; }).join('') +
+    '</div>';
+
+  return (
+    '<p class="section-label">' + t('overviewLabel') + '</p>' +
+    '<p class="overview-text">' + p.overview + '</p>' +
+    tabsHTML + stepsHTML + resourcesHTML
+  );
+}
+
+function renderIntro(){
+  const chips = PATH_ORDER.map(function(k){
+    return '<div class="chip"><div>' + ICONS[k] + '</div><div class="chip-name">' + PATHS[k][state.lang].name + '</div></div>';
+  }).join('');
+
+  const savedBannerHTML = state.savedSnapshot ? (
+    '<div class="saved-banner">' +
+      '<div class="saved-banner-text">' +
+        '<strong>' + t('loadHeading') + '</strong>' +
+        t('loadSubtext') + ' ' + state.savedSnapshot.dossierNumber +
+      '</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '<button class="btn-primary" data-action="load-results">' + t('loadBtn') + '</button>' +
+        '<button class="btn-ghost" data-action="start">' + t('loadRestartBtn') + '</button>' +
+      '</div>' +
+    '</div>'
+  ) : '';
+
+  return (
+    savedBannerHTML +
+    '<div class="hero">' +
+      '<p class="eyebrow">' + t('eyebrow') + '</p>' +
+      '<h1>' + t('title') + '</h1>' +
+      '<p class="subtitle">' + t('subtitle') + '</p>' +
+      (!state.savedSnapshot ?
+        '<div class="cta-row">' +
+          '<button class="btn-primary" data-action="start">' + t('startBtn') + '</button>' +
+          '<button class="btn-ghost" data-action="explore">' + t('exploreBtn') + '</button>' +
+        '</div>'
+        :
+        '<div class="cta-row">' +
+          '<button class="btn-ghost" data-action="explore">' + t('exploreBtn') + '</button>' +
+        '</div>'
+      ) +
+      '<div class="chips">' + chips + '</div>' +
+    '</div>'
+  );
+}
+
+function renderQuiz(){
+  const q = QUESTIONS[state.currentQuestion];
+  const selected = state.answers[state.currentQuestion];
+  const isLast = state.currentQuestion === QUESTIONS.length - 1;
+  const backStyle = state.currentQuestion === 0 ? 'visibility:hidden' : '';
+
+  // section progress dots
+  const currentSec = q.sec;
+  const dots = [1,2,3,4,5].map(function(s){
+    var cls = s < currentSec ? 'done' : s === currentSec ? 'active' : '';
+    return '<div class="sec-dot ' + cls + '"></div>';
+  }).join('');
+
+  // fine-grained bar (22 segments)
+  const segs = QUESTIONS.map(function(_,i){
+    return '<div class="progress-seg ' + (i < state.currentQuestion ? 'filled' : i === state.currentQuestion ? 'filled' : '') + '"></div>';
+  }).join('');
+
+  const options = q.options.map(function(opt,i){
+    return '<button class="qz-option ' + (selected===i?'selected':'') + '" data-action="select-option" data-oindex="' + i + '">' + opt.text[state.lang] + '</button>';
+  }).join('');
+
+  return (
+    '<div class="sec-header">' +
+      '<div class="sec-dots">' + dots + '</div>' +
+      '<span class="sec-name">' + t('sectionLabel') + ' ' + currentSec + '/5 — ' + SECTIONS[state.lang][currentSec-1] + '</span>' +
+    '</div>' +
+    '<div class="progress-row">' + segs + '</div>' +
+    '<p class="progress-label">' + t('questionLabel') + ' ' + (state.currentQuestion+1) + ' ' + t('ofLabel') + ' ' + QUESTIONS.length + '</p>' +
+    '<div class="qz-card">' +
+      '<p class="qz-question">' + q.text[state.lang] + '</p>' +
+      '<div class="qz-options">' + options + '</div>' +
+      '<div class="qz-nav">' +
+        '<button class="btn-ghost" style="' + backStyle + '" data-action="back">' + t('backBtn') + '</button>' +
+        '<button class="btn-primary" data-action="next"' + (selected==null?' disabled':'') + '>' + (isLast ? t('seeResultsBtn') : t('nextBtn')) + '</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function getTopSignals(topPath, count){
+  // Collect answers that gave >= 2 pts to the top path, ranked by score descending
+  var signals = [];
+  state.answers.forEach(function(optIdx, qIdx){
+    if(optIdx == null || optIdx === undefined) return;
+    var opt = QUESTIONS[qIdx].options[optIdx];
+    var sc = opt.score[topPath];
+    if(sc >= 2){
+      signals.push({
+        qIdx: qIdx,
+        optIdx: optIdx,
+        score: sc,
+        questionText: QUESTIONS[qIdx].text[state.lang],
+        answerText: opt.text[state.lang]
+      });
+    }
+  });
+  signals.sort(function(a,b){ return b.score - a.score; });
+  return signals.slice(0, count);
+}
+
+function renderPlan(pathKey){
+  var plan = PLANS[pathKey][state.lang];
+
+  var timelineHTML = '<p class="section-label">' + t('timelineHeading') + '</p>' +
+    '<div class="timeline">' +
+    plan.timeline.map(function(item, idx){
+      var isLast = idx === plan.timeline.length - 1;
+      return (
+        '<div class="tl-item">' +
+          '<div class="tl-left">' +
+            '<div class="tl-dot"></div>' +
+            (isLast ? '' : '<div class="tl-line"></div>') +
+          '</div>' +
+          '<div class="tl-content">' +
+            '<div class="tl-period">' + item.period + '</div>' +
+            '<ul class="tl-actions">' +
+              item.actions.map(function(a){ return '<li>' + a + '</li>'; }).join('') +
+            '</ul>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('') +
+    '</div>';
+
+  var legalHTML = '<p class="section-label">' + t('legalHeading') + '</p>' +
+    '<ul class="legal-list">' +
+    plan.legal.map(function(step){
+      return '<li><span class="legal-check">✓</span><span>' + step + '</span></li>';
+    }).join('') +
+    '</ul>';
+
+  var watchHTML = '<div class="watchout-box">' +
+    '<p class="section-label" style="margin-bottom:6px;">' + t('watchOutHeading') + '</p>' +
+    '<ul class="watchout-list">' +
+    plan.watchOut.map(function(w){ return '<li>' + w + '</li>'; }).join('') +
+    '</ul></div>';
+
+  var planbHTML = '<p class="section-label">' + t('planBHeading') + '</p>' +
+    '<div class="planb-box">' + plan.planB + '</div>';
+
+  return timelineHTML + legalHTML + watchHTML + planbHTML;
+}
+
+function renderResults(){
+  var pct = computePercentages();
+  var sorted = PATH_ORDER.slice().sort(function(a,b){ return pct[b]-pct[a]; });
+  var top = sorted[0], second = sorted[1];
+  var topPath = PATHS[top][state.lang];
+  var isHybrid = pct[top] > 0 && (pct[top] - pct[second]) <= 12;
+
+  var stampHTML =
+    '<div class="stamp"><span class="pct mono">' + pct[top] + '%</span><span class="pct-label">' + t('pctLabel') + '</span><span class="stamp-name">' + t('recommendedStamp') + '</span></div>';
+
+  var barsHTML = '<div class="bars">' + PATH_ORDER.map(function(k){
+    return (
+      '<div class="bar-row">' +
+        '<span class="bar-label">' + PATHS[k][state.lang].name + '</span>' +
+        '<span class="bar-track"><span class="bar-fill ' + (k===top?'top':'') + '" style="width:' + pct[k] + '%"></span></span>' +
+        '<span class="bar-pct mono">' + pct[k] + '%</span>' +
+      '</div>'
+    );
+  }).join('') + '</div>';
+
+  var hybridHTML = isHybrid ? (
+    '<div class="hybrid-note"><strong>' + t('hybridLead') + '</strong> ' + t('hybridMid') + ' <strong>' + PATHS[second][state.lang].name + '</strong> ' + t('hybridEnd') + ' <strong>' + PATHS[top][state.lang].name + '</strong> ' + t('hybridTail') + '</div>'
+  ) : '';
+
+  var signals = getTopSignals(top, 3);
+  var signalsHTML = signals.length > 0 ? (
+    '<div class="signals-box">' +
+      '<p class="section-label" style="margin-bottom:6px;">' + t('signalsHeading') + '</p>' +
+      '<p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;">' + t('signalsIntro') + '</p>' +
+      '<ul class="steps-list">' +
+        signals.map(function(s){
+          return '<li>' +
+            '<span class="step-num mono" style="color:var(--gold);">→</span>' +
+            '<span><em style="font-size:12px;color:var(--ink-soft);display:block;margin-bottom:1px;">' + s.questionText + '</em>' +
+            '<strong style="font-size:14px;">' + s.answerText + '</strong></span>' +
+          '</li>';
+        }).join('') +
+      '</ul>' +
+    '</div>'
+  ) : '';
+
+  var otherPaths = PATH_ORDER.filter(function(k){ return k !== top; });
+  var accordionHTML = '<div class="perf"></div>' +
+    '<p class="section-label" style="margin-top:6px;">' + t('otherPathsHeading') + '</p>' +
+    otherPaths.map(function(k){
+      var open = state.openAccordion === k;
+      return (
+        '<div class="accordion-item ' + (open?'open':'') + '">' +
+          '<button class="accordion-head" data-action="toggle-accordion" data-path="' + k + '">' +
+            ICONS[k] + '<span>' + PATHS[k][state.lang].name + '</span>' +
+            '<span class="accordion-chevron">\u203A</span>' +
+          '</button>' +
+          '<div class="accordion-body">' + renderPathDetail(k, 'guide') + renderPlan(k) + '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+  return (
+    '<div class="dossier-head">' +
+      '<div>' +
+        '<p class="section-label">' + t('resultsHeading') + '</p>' +
+        '<h1 style="margin-bottom:6px;">' + topPath.tagline + '</h1>' +
+        '<p class="subtitle" style="margin-bottom:0;">' + topPath.name + '</p>' +
+      '</div>' +
+      stampHTML +
+    '</div>' +
+    barsHTML +
+    hybridHTML +
+    signalsHTML +
+    '<div class="perf"></div>' +
+    renderPathDetail(top, 'result') +
+    '<div class="perf"></div>' +
+    renderPlan(top) +
+    accordionHTML +
+    '<div class="save-row">' +
+      '<button class="btn-save ' + (state.justSaved?'saved':'') + '" data-action="save-results">' +
+        (state.justSaved ? t('savedBtn') : '&#9744; ' + t('saveBtn')) +
+      '</button>' +
+      (state.justSaved ? '<span class="save-note">' + t('saveNote') + '</span>' : '') +
+    '</div>' +
+    '<div class="restart-row"><button class="btn-ghost" data-action="restart">' + t('restartBtn') + '</button></div>'
+  );
+}
+
+function renderGuide(){
+  const sections = PATH_ORDER.map(function(k, idx){
+    const p = PATHS[k][state.lang];
+    const head =
+      '<div class="dossier-head" style="align-items:center;">' +
+        '<div>' + ICONS[k] + '</div>' +
+        '<div><p class="section-label" style="margin-bottom:2px;">' + p.tagline + '</p><h1 style="font-size:22px;margin-bottom:0;">' + p.name + '</h1></div>' +
+      '</div>';
+    const body = renderPathDetail(k, 'guide');
+    const divider = idx < PATH_ORDER.length - 1 ? '<div class="perf"></div>' : '';
+    return head + body + divider;
+  }).join('');
+  return (
+    '<div class="hero">' +
+      '<p class="eyebrow">' + t('eyebrow') + '</p>' +
+      '<h1>' + t('title') + '</h1>' +
+    '</div>' +
+    sections +
+    '<div class="restart-row"><button class="btn-primary" data-action="start">' + t('startBtn') + '</button></div>'
+  );
+}
+
+function updateChrome(){
+  document.getElementById('fileTag').textContent = t('fileTag') + ' ' + state.dossierNumber;
+  document.getElementById('disclaimerText').textContent = t('disclaimerText');
+  document.getElementById('footerCredit').textContent = t('footerCredit');
+  document.querySelectorAll('#langSwitch button').forEach(function(b){
+    b.classList.toggle('active', b.dataset.lang === state.lang);
+  });
+  document.body.className = 'lang-' + state.lang;
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  document.title = t('title');
+}
+
+function render(){
+  updateChrome();
+  const app = document.getElementById('app');
+  if(state.screen === 'intro') app.innerHTML = renderIntro();
+  else if(state.screen === 'quiz') app.innerHTML = renderQuiz();
+  else if(state.screen === 'results') app.innerHTML = renderResults();
+  else if(state.screen === 'guide') app.innerHTML = renderGuide();
+}
+
+function handleClick(e){
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const action = el.dataset.action;
+
+  if(action === 'set-lang'){
+    state.lang = el.dataset.lang;
+    render();
+    return;
+  }
+  if(action === 'start'){
+    state.screen = 'quiz';
+    state.currentQuestion = 0;
+    state.answers = [];
+    render();
+    return;
+  }
+  if(action === 'explore'){
+    state.screen = 'guide';
+    render();
+    return;
+  }
+  if(action === 'select-option'){
+    state.answers[state.currentQuestion] = parseInt(el.dataset.oindex, 10);
+    render();
+    return;
+  }
+  if(action === 'next'){
+    if(state.answers[state.currentQuestion] == null) return;
+    if(state.currentQuestion < QUESTIONS.length - 1){
+      state.currentQuestion++;
+      render();
+    } else {
+      state.resultTab = 'academic';
+      state.openAccordion = null;
+      state.screen = 'results';
+      render();
+    }
+    return;
+  }
+  if(action === 'back'){
+    if(state.currentQuestion > 0){
+      state.currentQuestion--;
+      render();
+    }
+    return;
+  }
+  if(action === 'set-tab'){
+    const scope = el.dataset.scope, path = el.dataset.path, tab = el.dataset.tab;
+    if(scope === 'result') state.resultTab = tab;
+    else state.guideTabs[path] = tab;
+    render();
+    return;
+  }
+  if(action === 'toggle-accordion'){
+    const path = el.dataset.path;
+    state.openAccordion = state.openAccordion === path ? null : path;
+    render();
+    return;
+  }
+  if(action === 'restart'){
+    state.screen = 'intro';
+    state.currentQuestion = 0;
+    state.answers = [];
+    state.justSaved = false;
+    render();
+    return;
+  }
+  if(action === 'save-results'){
+    saveResults().then(function(ok){
+      if(ok){
+        state.justSaved = true;
+        state.savedSnapshot = { answers: state.answers.slice(), lang: state.lang, dossierNumber: state.dossierNumber };
+        render();
+      }
+    });
+    return;
+  }
+  if(action === 'load-results'){
+    if(state.savedSnapshot){
+      state.answers = state.savedSnapshot.answers.slice();
+      state.dossierNumber = state.savedSnapshot.dossierNumber;
+      state.resultTab = 'academic';
+      state.openAccordion = null;
+      state.justSaved = true;
+      state.screen = 'results';
+      render();
+    }
+    return;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelector('.wrap').addEventListener('click', handleClick);
+  loadSavedResults().then(function(saved){
+    if(saved && saved.answers && saved.answers.length === QUESTIONS.length){
+      state.savedSnapshot = saved;
+    }
+    render();
+  });
+});
+// PLACEHOLDER_LOGIC
+</script>
+</body>
+</html>
